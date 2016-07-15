@@ -176,6 +176,7 @@
                         <outlet property="expirationDateTextField" destination="IeC-wN-n5U" id="R11-2h-tHf"/>
                         <outlet property="submitButton" destination="T2S-aH-sgh" id="jNk-vu-bb4"/>
                         <outlet property="titleLabel" destination="rGX-CX-Tj9" id="53F-0o-jwd"/>
+                        <outlet property="titleLabelTopConstraint" destination="5fT-e5-Dq9" id="3wH-mf-36e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
