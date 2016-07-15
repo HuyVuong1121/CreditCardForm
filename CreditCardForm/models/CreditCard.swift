@@ -34,17 +34,17 @@ enum CreditCardType {
     var regex: String {
         switch self {
         case .Amex:
-            return "^3[47][0-9]{5,}$"
+            return "^3[47][0-9]{4,}$"
         case .DinersClub:
-            return "^3(?:0[0-5]|[68][0-9])[0-9]{4,}$"
+            return "^3(?:0[0-5]|[68][0-9])[0-9]{3,}$"
         case .Discover:
-            return "^6(?:011|5[0-9]{2})[0-9]{3,}$"
+            return "^6(?:011|5[0-9]{2})[0-9]{2,}$"
         case .JCB:
-            return "^(?:2131|1800|35[0-9]{3})[0-9]{3,}$"
+            return "^(?:2131|1800|35[0-9]{3})[0-9]{1,}$"
         case .MasterCard:
-            return "^5[1-5][0-9]{5,}$"
+            return "^5[1-5][0-9]{4,}$"
         case .Visa:
-            return "^4[0-9]{6,}$"
+            return "^4[0-9]{5,}$"
         case .Unknown:
             return "^$"
         }
