@@ -31,6 +31,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.view.backgroundColor = Theme.sharedInstance.lightThemeColor()
         let image = UIImage(named: "Venmo_Logo.png")
         self.navigationItem.titleView = UIImageView(image: image)
+        setupDelegates()
         setupControls()
     }
     
@@ -47,6 +48,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
+    func setupDelegates() {
+        cardNumberTextField.delegate = self
+        expirationDateTextField.delegate = self
+        cvvTextField.delegate = self
+    }
+    
     func setupControls() {
         titleLabel.textColor = Theme.sharedInstance.textThemeColor()
         cardNumberLabel.textColor = Theme.sharedInstance.textThemeColor()
@@ -58,10 +65,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         containerView.layer.cornerRadius = 4.0
         containerView.layer.borderWidth = 1.0
         containerView.layer.borderColor = Theme.sharedInstance.darkThemeColor().CGColor
-        
-        cardNumberTextField.delegate = self
-        expirationDateTextField.delegate = self
-        cvvTextField.delegate = self
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
