@@ -28,6 +28,7 @@ class CreditCardValidationTests: XCTestCase {
     let visa2Number = "4012888888881881"
     let visa3Number = "4222222222222"
     let visa3BadNumber = "4222222222223"
+    let visa3BadLuhnNumber = "4222222222225"
     
     let amexCVVNumber = "1234"
     
@@ -113,14 +114,6 @@ class CreditCardValidationTests: XCTestCase {
         XCTAssertEqual(cardType, CreditCardType.Visa)
     }
     
-    func testLuhnValidFromStringVisa3() {
-        XCTAssertTrue(visa3Number.isValidCardNumber())
-    }
-    
-    func testLuhnNotValidFromStringVisa3Bad() {
-        XCTAssertFalse(visa3BadNumber.isValidCardNumber())
-    }
-    
     func testIsValidateExpirationDateBadDate() {
         let isValidDate = isValidExpirationDate("aa/bb")
         XCTAssertFalse(isValidDate)
@@ -156,8 +149,13 @@ class CreditCardValidationTests: XCTestCase {
         XCTAssertFalse(isCorrectLength)
     }
     
-    func testIsCorrectCVVLength() {
-        let isCorrectLength = isCorrectCVVLength(amexCVVNumber, creditCardType: .Amex)
-        XCTAssertTrue(isCorrectLength)
+    func testPassesLuhnAlgorithm() {
+        let passesLuhn = passesLuhnAlgorithm(visa3Number)
+        XCTAssertTrue(passesLuhn)
+    }
+    
+    func testPassesLuhnAlgorithmBadDigit() {
+        let passesLuhn = passesLuhnAlgorithm(visa3BadLuhnNumber)
+        XCTAssertFalse(passesLuhn)
     }
 }

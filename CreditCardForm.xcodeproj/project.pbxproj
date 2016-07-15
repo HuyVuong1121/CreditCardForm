@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		959AF1392E29B960E956FBC9 /* Pods_CreditCardFormTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DD1593EAC83FB348E4087A9 /* Pods_CreditCardFormTests.framework */; };
 		A86770911D38794E00E1CC82 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = A86770901D38794E00E1CC82 /* Podfile */; };
-		A86770971D3885F700E1CC82 /* String+SwiftLuhn.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86770951D3885F700E1CC82 /* String+SwiftLuhn.swift */; };
-		A86770981D3885F700E1CC82 /* SwiftLuhn.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86770961D3885F700E1CC82 /* SwiftLuhn.swift */; };
 		A86771851D388EF300E1CC82 /* CreditCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86771841D388EF300E1CC82 /* CreditCardTests.swift */; };
 		A8C970261D382A1B00C1D3C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C970251D382A1B00C1D3C0 /* AppDelegate.swift */; };
 		A8C9702B1D382A1B00C1D3C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8C970291D382A1B00C1D3C0 /* Main.storyboard */; };
@@ -46,8 +44,6 @@
 		0E5E6A00A0D900F206CA70EE /* Pods-CreditCardForm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CreditCardForm.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CreditCardForm/Pods-CreditCardForm.debug.xcconfig"; sourceTree = "<group>"; };
 		2DD1593EAC83FB348E4087A9 /* Pods_CreditCardFormTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CreditCardFormTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A86770901D38794E00E1CC82 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A86770951D3885F700E1CC82 /* String+SwiftLuhn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+SwiftLuhn.swift"; sourceTree = "<group>"; };
-		A86770961D3885F700E1CC82 /* SwiftLuhn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftLuhn.swift; sourceTree = "<group>"; };
 		A86771841D388EF300E1CC82 /* CreditCardTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardTests.swift; sourceTree = "<group>"; };
 		A8C970221D382A1B00C1D3C0 /* CreditCardForm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CreditCardForm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8C970251D382A1B00C1D3C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -119,23 +115,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		A86770931D3885F700E1CC82 /* vendor */ = {
-			isa = PBXGroup;
-			children = (
-				A86770941D3885F700E1CC82 /* SwiftLuhn */,
-			);
-			path = vendor;
-			sourceTree = "<group>";
-		};
-		A86770941D3885F700E1CC82 /* SwiftLuhn */ = {
-			isa = PBXGroup;
-			children = (
-				A86770951D3885F700E1CC82 /* String+SwiftLuhn.swift */,
-				A86770961D3885F700E1CC82 /* SwiftLuhn.swift */,
-			);
-			path = SwiftLuhn;
-			sourceTree = "<group>";
-		};
 		A86771861D388F1D00E1CC82 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,7 +166,6 @@
 				A8C970541D382C3900C1D3C0 /* controllers */,
 				A8C970571D382C4700C1D3C0 /* lib */,
 				A8C970581D382C5100C1D3C0 /* models */,
-				A86770931D3885F700E1CC82 /* vendor */,
 				A86771861D388F1D00E1CC82 /* Support Files */,
 			);
 			path = CreditCardForm;
@@ -468,9 +446,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8C9705C1D38328B00C1D3C0 /* CreditCard.swift in Sources */,
-				A86770971D3885F700E1CC82 /* String+SwiftLuhn.swift in Sources */,
 				A8C9705A1D382CCC00C1D3C0 /* Theme.swift in Sources */,
-				A86770981D3885F700E1CC82 /* SwiftLuhn.swift in Sources */,
 				A8C970561D382C3900C1D3C0 /* ViewController.swift in Sources */,
 				A8C970261D382A1B00C1D3C0 /* AppDelegate.swift in Sources */,
 				A8C9705E1D38423C00C1D3C0 /* CreditCardValidation.swift in Sources */,

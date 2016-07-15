@@ -151,7 +151,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func evaluateCardNumber(cardNumber: String) {
         creditCard.type = creditCardTypeFromString(cardNumber)
         cardImageView.image = UIImage(named: creditCard.type.logo)
-        if creditCard.type != .Unknown && isCorrectCreditCardNumberLength(cardNumber, creditCardType: creditCard.type) {
+        if creditCard.type != .Unknown && isCorrectCreditCardNumberLength(cardNumber, creditCardType: creditCard.type) && passesLuhnAlgorithm(cardNumber) {
             cardNumberCheckMark.hidden = false
             creditCard.cardNumber = cardNumber
             expirationDateTextField.enabled = true

@@ -28,6 +28,39 @@ func onlyNumbersFromString(string: String) -> String {
     return numbers.joinWithSeparator("")
 }
 
+func passesLuhnAlgorithm(cardNumber: String) -> Bool {
+    
+    let formattedCardNumber = onlyNumbersFromString(cardNumber)
+    
+    let originalCheckDigit = formattedCardNumber.characters.last!
+    let characters = formattedCardNumber.characters.dropLast().reverse()
+    
+    var digitSum = 0
+    
+    for (idx, character) in characters.enumerate() {
+        let value = Int(String(character)) ?? 0
+        if idx % 2 == 0 {
+            var product = value * 2
+            
+            if product > 9 {
+                product = product - 9
+            }
+            
+            digitSum = digitSum + product
+        }
+        else {
+            digitSum = digitSum + value
+        }
+    }
+    
+    digitSum = digitSum * 9
+    
+    let computedCheckDigit = digitSum % 10
+    
+    let originalCheckDigitInt = Int(String(originalCheckDigit))
+    return originalCheckDigitInt == computedCheckDigit
+}
+
 func isValidExpirationDate(expirationDateString: String) -> Bool {
     // this is assuming the expiration date is the first day of the month after the month listed on the credit card.
     let dateFormatter = NSDateFormatter()
