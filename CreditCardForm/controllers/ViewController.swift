@@ -148,6 +148,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    func textFieldDidEndEditing(textField: UITextField) {
+        textField.layoutIfNeeded()
+    }
+    
     func evaluateCardNumber(cardNumber: String) {
         creditCard.type = creditCardTypeFromString(cardNumber)
         cardImageView.image = UIImage(named: creditCard.type.logo)
