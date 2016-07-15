@@ -86,5 +86,14 @@ class CreditCardTests: XCTestCase {
         let card = CreditCard.init(cardNumber: "", expirationDate: expirationDateString, cvv: "", type: .Amex)
         XCTAssertTrue(card.expirationDateIsValid())
     }
+    
+    func testCardExpirationDateBadDate() {
+        let expirationDate = NSCalendar.currentCalendar().dateByAddingUnit(.Month, value: -1, toDate: NSDate(), options:[])
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MM/yy"
+        let expirationDateString = dateFormatter.stringFromDate(expirationDate!)
+        let card = CreditCard.init(cardNumber: "", expirationDate: expirationDateString, cvv: "", type: .Amex)
+        XCTAssertFalse(card.expirationDateIsValid())
+    }
 
 }
