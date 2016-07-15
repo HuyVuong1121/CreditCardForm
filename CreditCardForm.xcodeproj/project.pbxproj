@@ -139,7 +139,6 @@
 		A86771861D388F1D00E1CC82 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				A8C9702C1D382A1B00C1D3C0 /* Assets.xcassets */,
 				A8C970311D382A1B00C1D3C0 /* Info.plist */,
 				A8C9703C1D382A1B00C1D3C0 /* Info.plist */,
 			);
@@ -183,6 +182,7 @@
 			children = (
 				A8C970251D382A1B00C1D3C0 /* AppDelegate.swift */,
 				A8C970531D382A8400C1D3C0 /* CreditCardFormPlayground.playground */,
+				A8C9702C1D382A1B00C1D3C0 /* Assets.xcassets */,
 				A86771871D388F6A00E1CC82 /* Storyboards */,
 				A8C970541D382C3900C1D3C0 /* controllers */,
 				A8C970571D382C4700C1D3C0 /* lib */,
