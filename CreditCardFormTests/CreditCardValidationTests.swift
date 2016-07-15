@@ -28,10 +28,6 @@ class CreditCardValidationTests: XCTestCase {
     let visa3Number = "4222222222222"
     let visa3BadNumber = "4222222222223"
 
-    override func setUp() {
-        super.setUp()
-    }
-
     func testCreditCardTypeFromStringEmptyNumber() {
         let cardType = creditCardTypeFromString(emptyNumber)
         XCTAssertEqual(cardType, CreditCardType.Unknown)
