@@ -12,6 +12,7 @@ import XCTest
 class CreditCardValidationTests: XCTestCase {
     
     let emptyNumber = ""
+    let shortNumber = "3782"
     let randomNumber = "asoidfwneroqj"
     let amex1Number = "378282246310005"
     let amex2Number = "371449635398431"
@@ -27,9 +28,18 @@ class CreditCardValidationTests: XCTestCase {
     let visa2Number = "4012888888881881"
     let visa3Number = "4222222222222"
     let visa3BadNumber = "4222222222223"
+    
+    let amexCVVNumber = "1234"
+    
+    let dateFormatter = NSDateFormatter()
 
     func testCreditCardTypeFromStringEmptyNumber() {
         let cardType = creditCardTypeFromString(emptyNumber)
+        XCTAssertEqual(cardType, CreditCardType.Unknown)
+    }
+    
+    func testCreditCardTypeFromStringShortNumber() {
+        let cardType = creditCardTypeFromString(shortNumber)
         XCTAssertEqual(cardType, CreditCardType.Unknown)
     }
     
@@ -117,7 +127,6 @@ class CreditCardValidationTests: XCTestCase {
     }
     
     func testIsValidExpirationDateCurrentMonth() {
-        let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "MM/yy"
         let expirationDateString = dateFormatter.stringFromDate(NSDate())
         let isValidDate = isValidExpirationDate(expirationDateString)
@@ -126,10 +135,29 @@ class CreditCardValidationTests: XCTestCase {
     
     func testIsValidExpirationDateNextMonth() {
         let expirationDate = NSCalendar.currentCalendar().dateByAddingUnit(.Month, value: 1, toDate: NSDate(), options:[])
-        let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "MM/yy"
         let expirationDateString = dateFormatter.stringFromDate(expirationDate!)
         let isValidDate = isValidExpirationDate(expirationDateString)
         XCTAssertTrue(isValidDate)
+    }
+    
+    func testIsCorrectCreditCardNumberLengthBadNumber() {
+        let isCorrectLength = isCorrectCreditCardNumberLength(amex1Number, creditCardType: .Discover)
+        XCTAssertFalse(isCorrectLength)
+    }
+    
+    func testIsCorrectCreditCardNumberLength() {
+        let isCorrectLength = isCorrectCreditCardNumberLength(amex1Number, creditCardType: .Amex)
+        XCTAssertTrue(isCorrectLength)
+    }
+    
+    func testIsCorrectCVVLengthBadCVV() {
+        let isCorrectLength = isCorrectCVVLength(amexCVVNumber, creditCardType: .Discover)
+        XCTAssertFalse(isCorrectLength)
+    }
+    
+    func testIsCorrectCVVLength() {
+        let isCorrectLength = isCorrectCVVLength(amexCVVNumber, creditCardType: .Amex)
+        XCTAssertTrue(isCorrectLength)
     }
 }

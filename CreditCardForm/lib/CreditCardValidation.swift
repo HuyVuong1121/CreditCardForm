@@ -9,6 +9,9 @@
 import Foundation
 
 func creditCardTypeFromString(string: String) -> CreditCardType {
+    if string.characters.count < 6 {
+        return CreditCardType.Unknown
+    }
     for type in CreditCardType.allValues {
         let predicate = NSPredicate(format: "SELF MATCHES %@", type.regex)
         let numbersString = onlyNumbersFromString(string)
@@ -41,6 +44,14 @@ func isValidExpirationDate(expirationDateString: String) -> Bool {
         return false
     }
     return false
+}
+
+func isCorrectCreditCardNumberLength(cardNumber: String, creditCardType: CreditCardType) -> Bool {
+    return cardNumber.characters.count == creditCardType.cardNumberLength
+}
+
+func isCorrectCVVLength(cvv: String, creditCardType: CreditCardType) -> Bool {
+    return cvv.characters.count == creditCardType.cvvLength
 }
 
 

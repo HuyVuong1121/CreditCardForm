@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		444D577959BE61B120089F2F /* Pods_CreditCardForm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC4F8CD20C0217BF8EC7EAC0 /* Pods_CreditCardForm.framework */; };
 		959AF1392E29B960E956FBC9 /* Pods_CreditCardFormTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DD1593EAC83FB348E4087A9 /* Pods_CreditCardFormTests.framework */; };
 		A86770911D38794E00E1CC82 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = A86770901D38794E00E1CC82 /* Podfile */; };
 		A86770971D3885F700E1CC82 /* String+SwiftLuhn.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86770951D3885F700E1CC82 /* String+SwiftLuhn.swift */; };
@@ -79,7 +78,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA53E23B641471549B588E46 /* Pods_CreditCardForm.framework in Frameworks */,
-				444D577959BE61B120089F2F /* Pods_CreditCardForm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
