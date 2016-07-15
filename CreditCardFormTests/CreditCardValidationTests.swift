@@ -130,15 +130,15 @@ class CreditCardValidationTests: XCTestCase {
         dateFormatter.dateFormat = "MM/yy"
         let expirationDateString = dateFormatter.stringFromDate(NSDate())
         let isValidDate = isValidExpirationDate(expirationDateString)
-        XCTAssertFalse(isValidDate)
+        XCTAssertTrue(isValidDate)
     }
     
-    func testIsValidExpirationDateNextMonth() {
-        let expirationDate = NSCalendar.currentCalendar().dateByAddingUnit(.Month, value: 1, toDate: NSDate(), options:[])
+    func testIsValidExpirationDatePreviousMonth() {
+        let expirationDate = NSCalendar.currentCalendar().dateByAddingUnit(.Month, value: -1, toDate: NSDate(), options:[])
         dateFormatter.dateFormat = "MM/yy"
         let expirationDateString = dateFormatter.stringFromDate(expirationDate!)
         let isValidDate = isValidExpirationDate(expirationDateString)
-        XCTAssertTrue(isValidDate)
+        XCTAssertFalse(isValidDate)
     }
     
     func testIsCorrectCreditCardNumberLengthBadNumber() {

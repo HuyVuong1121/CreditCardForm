@@ -35,9 +35,10 @@ func isValidExpirationDate(expirationDateString: String) -> Bool {
     if let expirationDate = dateFormatter.dateFromString(expirationDateString) {
         let now = NSDate()
         let calendar = NSCalendar.currentCalendar()
-        let expirationComponents = calendar.components([NSCalendarUnit.Day, NSCalendarUnit.Month, NSCalendarUnit.Year], fromDate: expirationDate)
+        var expirationAdjustedDate = calendar.dateByAddingUnit(NSCalendarUnit.Month, value: 1, toDate: expirationDate, options: [])
+        let expirationComponents = calendar.components([NSCalendarUnit.Day, NSCalendarUnit.Month, NSCalendarUnit.Year], fromDate: expirationAdjustedDate!)
         expirationComponents.day = 0
-        let expirationAdjustedDate = calendar.dateFromComponents(expirationComponents)
+        expirationAdjustedDate = calendar.dateFromComponents(expirationComponents)
         if now.compare(expirationAdjustedDate!) == NSComparisonResult.OrderedAscending {
             return true
         }
