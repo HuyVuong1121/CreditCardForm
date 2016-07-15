@@ -66,7 +66,7 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="1234" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WbO-VS-4c0">
+                                    <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="1234" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WbO-VS-4c0">
                                         <rect key="frame" x="152" y="116" width="70" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="70" id="TKY-wP-dNY"/>
@@ -82,7 +82,7 @@
                                             <constraint firstAttribute="width" constant="36" id="cZ5-CD-dyL"/>
                                         </constraints>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="12/16" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IeC-wN-n5U">
+                                    <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="12/16" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IeC-wN-n5U">
                                         <rect key="frame" x="32" y="116" width="70" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="7q3-uG-5WA"/>

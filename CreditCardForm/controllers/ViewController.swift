@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var cardNumberLabel: UILabel!
@@ -23,20 +23,22 @@ class ViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var titleLabelTopConstraint: NSLayoutConstraint!
     
+    let titleLabelDefault: CGFloat = 59.0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         Theme.sharedInstance.setNavigationBarAppearance(navigationController)
         self.view.backgroundColor = Theme.sharedInstance.lightThemeColor()
         let image = UIImage(named: "Venmo_Logo.png")
         self.navigationItem.titleView = UIImageView(image: image)
-        
         setupControls()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardDidHide(_:)), name: UIKeyboardDidHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.textDidChange(_:)),    name: UITextFieldTextDidChangeNotification, object: nil)
         resetFormPosition()
     }
     
@@ -56,17 +58,31 @@ class ViewController: UIViewController {
         containerView.layer.cornerRadius = 4.0
         containerView.layer.borderWidth = 1.0
         containerView.layer.borderColor = Theme.sharedInstance.darkThemeColor().CGColor
+        
+        cardNumberTextField.delegate = self
+        expirationDateTextField.delegate = self
+        cvvTextField.delegate = self
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        resetFormPosition()
+        if titleLabelTopConstraint.constant == 0 {
+            resignFirstResponders()
+            titleLabelTopConstraint.constant = titleLabelDefault
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                self.view.layoutIfNeeded()
+            })
+        }
     }
     
     func resetFormPosition() {
+        resignFirstResponders()
+        titleLabelTopConstraint.constant = titleLabelDefault
+    }
+    
+    func resignFirstResponders() {
         cardNumberTextField.resignFirstResponder()
         expirationDateTextField.resignFirstResponder()
         cvvTextField.resignFirstResponder()
-        titleLabelTopConstraint.constant = 59.0
     }
     
     func keyboardWillShow(notification: NSNotification) {
@@ -84,12 +100,20 @@ class ViewController: UIViewController {
         }
     }
     
-    func keyboardWillHide(notification: NSNotification) {
+    func keyboardDidHide(notification: NSNotification) {
         titleLabelTopConstraint.constant = 59.0
         UIView.animateWithDuration(0.5, animations: { () -> Void in
             self.view.layoutIfNeeded()
         })
     }
+    
+    func textDidChange(notification: NSNotification) {
+        let textField = notification.object as! UITextField
+        if let text = textField.text {
+            print("\(text)")
+        }
+    }
+    
 
     @IBAction func submitButtonPressed(sender: AnyObject) {
         
