@@ -46,7 +46,6 @@ func isValidExpirationDate(expirationDateString: String) -> Bool {
     }
     return false
 }
-
 func isCorrectCreditCardNumberLength(cardNumber: String, creditCardType: CreditCardType) -> Bool {
     return cardNumber.characters.count == creditCardType.cardNumberLength
 }

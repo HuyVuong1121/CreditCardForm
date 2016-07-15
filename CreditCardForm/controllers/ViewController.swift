@@ -22,8 +22,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var titleLabelTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var cardNumberCheckMark: UIImageView!
+    @IBOutlet weak var expirationDateCheckMark: UIImageView!
+    @IBOutlet weak var cvvCheckMark: UIImageView!
     
     let titleLabelDefault: CGFloat = 59.0
+    var creditCard: CreditCard = CreditCard.init(cardNumber: "", expirationDate: "", cvv: "", type: .Unknown)
+    
+    enum TextFieldType: Int {
+        case NumberTextField = 0, ExpirationDateTextField, CVVTextField
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +41,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.navigationItem.titleView = UIImageView(image: image)
         setupDelegates()
         setupControls()
+        setupControlLayers()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -59,12 +68,29 @@ class ViewController: UIViewController, UITextFieldDelegate {
         cardNumberLabel.textColor = Theme.sharedInstance.textThemeColor()
         expirationDateLabel.textColor = Theme.sharedInstance.textThemeColor()
         cvvLabel.textColor = Theme.sharedInstance.textThemeColor()
-        submitButton.layer.cornerRadius = 4.0
         submitButton.backgroundColor = Theme.sharedInstance.darkThemeColor()
         submitButton.setTitleColor(Theme.sharedInstance.contrastThemeColor(), forState: UIControlState.Normal)
+        cardNumberCheckMark.hidden = true
+        expirationDateCheckMark.hidden = true
+        cvvCheckMark.hidden = true
+        expirationDateTextField.enabled = false
+        cvvTextField.enabled = false
+    }
+    
+    func setupControlLayers() {
+        submitButton.layer.cornerRadius = 4.0
         containerView.layer.cornerRadius = 4.0
         containerView.layer.borderWidth = 1.0
         containerView.layer.borderColor = Theme.sharedInstance.darkThemeColor().CGColor
+        cardNumberTextField.layer.cornerRadius = 4.0
+        cardNumberTextField.layer.borderWidth = 1.0
+        cardNumberTextField.layer.borderColor = UIColor.darkGrayColor().CGColor
+        expirationDateTextField.layer.cornerRadius = 4.0
+        expirationDateTextField.layer.borderWidth = 1.0
+        expirationDateTextField.layer.borderColor = UIColor.clearColor().CGColor
+        cvvTextField.layer.cornerRadius = 4.0
+        cvvTextField.layer.borderWidth = 1.0
+        cvvTextField.layer.borderColor = UIColor.clearColor().CGColor
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -109,7 +135,57 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func textDidChange(notification: NSNotification) {
         let textField = notification.object as! UITextField
         if let text = textField.text {
-            print("\(text)")
+            switch(textField.tag) {
+            case 0:
+                evaluateCardNumber(text)
+            case 1:
+                evaluateExpiredDate(text)
+            case 2:
+                evaluateCVV(text)
+            default:
+                break
+            }
+        }
+    }
+    
+    func evaluateCardNumber(cardNumber: String) {
+        creditCard.type = creditCardTypeFromString(cardNumber)
+        cardImageView.image = UIImage(named: creditCard.type.logo)
+        if creditCard.type != .Unknown && isCorrectCreditCardNumberLength(cardNumber, creditCardType: creditCard.type) {
+            cardNumberCheckMark.hidden = false
+            creditCard.cardNumber = cardNumber
+            expirationDateTextField.enabled = true
+            expirationDateTextField.layer.borderColor = UIColor.darkGrayColor().CGColor
+            cvvTextField.enabled = true
+            cvvTextField.layer.borderColor = UIColor.darkGrayColor().CGColor
+        } else {
+            cardNumberCheckMark.hidden = true
+            creditCard.cardNumber = ""
+            expirationDateTextField.enabled = false
+            expirationDateTextField.layer.borderColor = UIColor.clearColor().CGColor
+            cvvTextField.enabled = false
+            cvvTextField.layer.borderColor = UIColor.clearColor().CGColor
+        }
+    }
+    
+    func evaluateExpiredDate(date: String) {
+        if isValidExpirationDate(date) {
+            expirationDateCheckMark.hidden = false
+            creditCard.expirationDate = date
+        } else {
+            expirationDateCheckMark.hidden = true
+            creditCard.expirationDate = ""
+        }
+    }
+    
+    func evaluateCVV(cvv: String) {
+        cvvImageView.image = UIImage(named: "Cards_CVV.png")
+        if cvv.characters.count == creditCard.type.cvvLength {
+            cvvCheckMark.hidden = false
+            creditCard.cvv = cvv
+        } else {
+            cvvCheckMark.hidden = true
+            creditCard.cvv = ""
         }
     }
 

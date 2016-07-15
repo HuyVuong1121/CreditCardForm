@@ -27,7 +27,7 @@ enum CreditCardType {
         case .Visa:
             return "Cards_Visa.png"
         case .Unknown:
-            return "Cards_GenericCard.png"
+            return "Cards_Blank.png"
         }
     }
     
@@ -52,15 +52,17 @@ enum CreditCardType {
     
     var cardNumberLength: Int {
         switch self {
+        case .DinersClub: return 14
         case .Amex: return 15
-        case .DinersClub, .Discover, .JCB, .MasterCard, .Visa, .Unknown: return 16
+        case .Discover, .JCB, .MasterCard, .Visa, .Unknown: return 16
         }
     }
     
     var cvvLength: Int {
         switch self {
         case .Amex: return 4
-        case .DinersClub, .Discover, .JCB, .MasterCard, .Visa, .Unknown: return 3
+        case .DinersClub, .Discover, .JCB, .MasterCard, .Visa: return 3
+        case .Unknown: return 5
         }
     }
     

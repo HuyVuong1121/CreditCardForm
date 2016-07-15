@@ -95,5 +95,4 @@ class CreditCardTests: XCTestCase {
         let card = CreditCard.init(cardNumber: "", expirationDate: expirationDateString, cvv: "", type: .Amex)
         XCTAssertFalse(card.expirationDateIsValid())
     }
-
 }

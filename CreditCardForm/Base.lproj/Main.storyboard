@@ -75,7 +75,7 @@
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                     </textField>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Cards_CVV" translatesAutoresizingMaskIntoConstraints="NO" id="Ltc-gm-peC">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Cards_Blank" translatesAutoresizingMaskIntoConstraints="NO" id="Ltc-gm-peC">
                                         <rect key="frame" x="232" y="116" width="36" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="83k-RR-ZSd"/>
@@ -91,7 +91,7 @@
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                     </textField>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Cards_GenericCard" translatesAutoresizingMaskIntoConstraints="NO" id="RIL-Bv-IGD">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Cards_Blank" translatesAutoresizingMaskIntoConstraints="NO" id="RIL-Bv-IGD">
                                         <rect key="frame" x="232" y="41" width="36" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="Ben-dO-5G8"/>
@@ -128,6 +128,15 @@
                                             <action selector="submitButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YcJ-H0-vaj"/>
                                         </connections>
                                     </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="green_checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="0XB-ri-Fwy">
+                                        <rect key="frame" x="272" y="46" width="20" height="20"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="green_checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="JwG-bH-3nU">
+                                        <rect key="frame" x="272" y="121" width="20" height="20"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="green_checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="cTF-K9-NDc">
+                                        <rect key="frame" x="110" y="121" width="20" height="20"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -166,12 +175,15 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="cardImageView" destination="RIL-Bv-IGD" id="6sb-2L-LBN"/>
+                        <outlet property="cardNumberCheckMark" destination="0XB-ri-Fwy" id="5Sd-1D-77g"/>
                         <outlet property="cardNumberLabel" destination="ebX-9i-o04" id="6RX-vw-Ym9"/>
                         <outlet property="cardNumberTextField" destination="XcD-b5-jne" id="qeI-kg-U4i"/>
                         <outlet property="containerView" destination="vYm-NX-Jm4" id="hks-pg-c7Z"/>
+                        <outlet property="cvvCheckMark" destination="JwG-bH-3nU" id="a8u-Su-2ru"/>
                         <outlet property="cvvImageView" destination="Ltc-gm-peC" id="DeY-mu-pie"/>
                         <outlet property="cvvLabel" destination="Rcf-Fm-1X1" id="nq7-sK-qLn"/>
                         <outlet property="cvvTextField" destination="WbO-VS-4c0" id="5Xf-bQ-7a5"/>
+                        <outlet property="expirationDateCheckMark" destination="cTF-K9-NDc" id="0iE-2q-4TI"/>
                         <outlet property="expirationDateLabel" destination="sDf-j8-AHf" id="ueS-b9-DNu"/>
                         <outlet property="expirationDateTextField" destination="IeC-wN-n5U" id="R11-2h-tHf"/>
                         <outlet property="submitButton" destination="T2S-aH-sgh" id="jNk-vu-bb4"/>
@@ -185,7 +197,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Cards_CVV" width="24" height="23"/>
-        <image name="Cards_GenericCard" width="28" height="28"/>
+        <image name="Cards_Blank" width="24" height="24"/>
+        <image name="green_checkmark" width="62" height="62"/>
     </resources>
 </document>
