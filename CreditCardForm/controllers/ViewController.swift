@@ -37,7 +37,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardDidHide(_:)), name: UIKeyboardDidHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.textDidChange(_:)),    name: UITextFieldTextDidChangeNotification, object: nil)
         resetFormPosition()
     }
@@ -67,10 +67,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if titleLabelTopConstraint.constant == 0 {
             resignFirstResponders()
-            titleLabelTopConstraint.constant = titleLabelDefault
-            UIView.animateWithDuration(0.5, animations: { () -> Void in
-                self.view.layoutIfNeeded()
-            })
         }
     }
     
@@ -100,7 +96,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func keyboardDidHide(notification: NSNotification) {
+    func keyboardWillHide(notification: NSNotification) {
         titleLabelTopConstraint.constant = 59.0
         UIView.animateWithDuration(0.5, animations: { () -> Void in
             self.view.layoutIfNeeded()
@@ -113,7 +109,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
             print("\(text)")
         }
     }
-    
 
     @IBAction func submitButtonPressed(sender: AnyObject) {
         
