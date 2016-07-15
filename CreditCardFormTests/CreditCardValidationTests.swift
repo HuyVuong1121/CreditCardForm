@@ -158,4 +158,19 @@ class CreditCardValidationTests: XCTestCase {
         let passesLuhn = passesLuhnAlgorithm(visa3BadLuhnNumber)
         XCTAssertFalse(passesLuhn)
     }
+    
+    func testPadExpirationDateMonthWith1Slash() {
+        let paddedString = padExpirationDateMonth("1/")
+        XCTAssertEqual(paddedString, "01/")
+    }
+    
+    func testPadExpirationDateMonthWith3() {
+        let paddedString = padExpirationDateMonth("3")
+        XCTAssertEqual(paddedString, "03")
+    }
+    
+    func testPadExpirationDateMonthWith09() {
+        let paddedString = padExpirationDateMonth("09")
+        XCTAssertEqual(paddedString, "09")
+    }
 }

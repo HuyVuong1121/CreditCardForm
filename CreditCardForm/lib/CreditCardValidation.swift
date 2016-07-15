@@ -38,6 +38,9 @@ func padExpirationDateMonth(string: String) -> String {
             }
         }
     }
+    if string == "1/" {
+        return "01/"
+    }
     return string
 }
 

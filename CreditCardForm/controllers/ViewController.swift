@@ -73,7 +73,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         cardNumberCheckMark.hidden = true
         expirationDateCheckMark.hidden = true
         cvvCheckMark.hidden = true
-        expirationDateTextField.enabled = false
         cvvTextField.enabled = false
     }
     
@@ -87,7 +86,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         cardNumberTextField.layer.borderColor = UIColor.darkGrayColor().CGColor
         expirationDateTextField.layer.cornerRadius = 4.0
         expirationDateTextField.layer.borderWidth = 1.0
-        expirationDateTextField.layer.borderColor = UIColor.clearColor().CGColor
         cvvTextField.layer.cornerRadius = 4.0
         cvvTextField.layer.borderWidth = 1.0
         cvvTextField.layer.borderColor = UIColor.clearColor().CGColor
@@ -185,21 +183,19 @@ class ViewController: UIViewController, UITextFieldDelegate {
             cardNumberCheckMark.hidden = false
             creditCard.cardNumber = cardNumber
             expirationDateTextField.enabled = true
-            expirationDateTextField.layer.borderColor = UIColor.darkGrayColor().CGColor
             cvvTextField.enabled = true
             cvvTextField.layer.borderColor = UIColor.darkGrayColor().CGColor
         } else {
             cardNumberCheckMark.hidden = true
             creditCard.cardNumber = ""
-            expirationDateTextField.enabled = false
-            expirationDateTextField.layer.borderColor = UIColor.clearColor().CGColor
-            cvvTextField.enabled = false
-            cvvTextField.layer.borderColor = UIColor.clearColor().CGColor
+            cvvTextField.text = ""
+            creditCard.cvv = ""
         }
+        evaluateCVV(creditCard.cvv)
     }
     
     func evaluateExpiredDate(date: String) {
-        if date.characters.count == 1 {
+        if date.characters.count <= 2 {
             expirationDateTextField.text = padExpirationDateMonth(date)
         }
         if isValidExpirationDate(date) {
