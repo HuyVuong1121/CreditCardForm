@@ -110,4 +110,26 @@ class CreditCardValidationTests: XCTestCase {
     func testLuhnNotValidFromStringVisa3Bad() {
         XCTAssertFalse(visa3BadNumber.isValidCardNumber())
     }
+    
+    func testIsValidateExpirationDateBadDate() {
+        let isValidDate = isValidExpirationDate("aa/bb")
+        XCTAssertFalse(isValidDate)
+    }
+    
+    func testIsValidExpirationDateCurrentMonth() {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MM/yy"
+        let expirationDateString = dateFormatter.stringFromDate(NSDate())
+        let isValidDate = isValidExpirationDate(expirationDateString)
+        XCTAssertFalse(isValidDate)
+    }
+    
+    func testIsValidExpirationDateNextMonth() {
+        let expirationDate = NSCalendar.currentCalendar().dateByAddingUnit(.Month, value: 1, toDate: NSDate(), options:[])
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MM/yy"
+        let expirationDateString = dateFormatter.stringFromDate(expirationDate!)
+        let isValidDate = isValidExpirationDate(expirationDateString)
+        XCTAssertTrue(isValidDate)
+    }
 }

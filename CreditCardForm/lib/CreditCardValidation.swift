@@ -25,4 +25,21 @@ func onlyNumbersFromString(string: String) -> String {
     return numbers.joinWithSeparator("")
 }
 
+func isValidExpirationDate(expirationDateString: String) -> Bool {
+    let dateFormatter = NSDateFormatter()
+    dateFormatter.dateFormat = "MM/yy"
+    if let expirationDate = dateFormatter.dateFromString(expirationDateString) {
+        let now = NSDate()
+        let calendar = NSCalendar.currentCalendar()
+        let expirationComponents = calendar.components([NSCalendarUnit.Day, NSCalendarUnit.Month, NSCalendarUnit.Year], fromDate: expirationDate)
+        expirationComponents.day = 0
+        let expirationAdjustedDate = calendar.dateFromComponents(expirationComponents)
+        if now.compare(expirationAdjustedDate!) == NSComparisonResult.OrderedAscending {
+            return true
+        }
+        return false
+    }
+    return false
+}
+
 

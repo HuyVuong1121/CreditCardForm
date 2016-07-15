@@ -12,6 +12,7 @@
 		A86770911D38794E00E1CC82 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = A86770901D38794E00E1CC82 /* Podfile */; };
 		A86770971D3885F700E1CC82 /* String+SwiftLuhn.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86770951D3885F700E1CC82 /* String+SwiftLuhn.swift */; };
 		A86770981D3885F700E1CC82 /* SwiftLuhn.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86770961D3885F700E1CC82 /* SwiftLuhn.swift */; };
+		A86771851D388EF300E1CC82 /* CreditCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86771841D388EF300E1CC82 /* CreditCardTests.swift */; };
 		A8C970261D382A1B00C1D3C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C970251D382A1B00C1D3C0 /* AppDelegate.swift */; };
 		A8C9702B1D382A1B00C1D3C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8C970291D382A1B00C1D3C0 /* Main.storyboard */; };
 		A8C9702D1D382A1B00C1D3C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8C9702C1D382A1B00C1D3C0 /* Assets.xcassets */; };
@@ -48,6 +49,7 @@
 		A86770901D38794E00E1CC82 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A86770951D3885F700E1CC82 /* String+SwiftLuhn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+SwiftLuhn.swift"; sourceTree = "<group>"; };
 		A86770961D3885F700E1CC82 /* SwiftLuhn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftLuhn.swift; sourceTree = "<group>"; };
+		A86771841D388EF300E1CC82 /* CreditCardTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardTests.swift; sourceTree = "<group>"; };
 		A8C970221D382A1B00C1D3C0 /* CreditCardForm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CreditCardForm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8C970251D382A1B00C1D3C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A8C9702A1D382A1B00C1D3C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -55,7 +57,7 @@
 		A8C9702F1D382A1B00C1D3C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A8C970311D382A1B00C1D3C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A8C970361D382A1B00C1D3C0 /* CreditCardFormTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CreditCardFormTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A8C9703C1D382A1B00C1D3C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A8C9703C1D382A1B00C1D3C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = CreditCardFormTests/Info.plist; sourceTree = SOURCE_ROOT; };
 		A8C970411D382A1B00C1D3C0 /* CreditCardFormUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CreditCardFormUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8C970451D382A1B00C1D3C0 /* CreditCardFormUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardFormUITests.swift; sourceTree = "<group>"; };
 		A8C970471D382A1B00C1D3C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -136,6 +138,25 @@
 			path = SwiftLuhn;
 			sourceTree = "<group>";
 		};
+		A86771861D388F1D00E1CC82 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				A8C9702C1D382A1B00C1D3C0 /* Assets.xcassets */,
+				A8C970311D382A1B00C1D3C0 /* Info.plist */,
+				A8C9703C1D382A1B00C1D3C0 /* Info.plist */,
+			);
+			name = "Support Files";
+			sourceTree = "<group>";
+		};
+		A86771871D388F6A00E1CC82 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				A8C9702E1D382A1B00C1D3C0 /* LaunchScreen.storyboard */,
+				A8C970291D382A1B00C1D3C0 /* Main.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
 		A8C970191D382A1B00C1D3C0 = {
 			isa = PBXGroup;
 			children = (
@@ -163,15 +184,13 @@
 			isa = PBXGroup;
 			children = (
 				A8C970251D382A1B00C1D3C0 /* AppDelegate.swift */,
-				A8C970291D382A1B00C1D3C0 /* Main.storyboard */,
 				A8C970531D382A8400C1D3C0 /* CreditCardFormPlayground.playground */,
+				A86771871D388F6A00E1CC82 /* Storyboards */,
 				A8C970541D382C3900C1D3C0 /* controllers */,
 				A8C970571D382C4700C1D3C0 /* lib */,
 				A8C970581D382C5100C1D3C0 /* models */,
 				A86770931D3885F700E1CC82 /* vendor */,
-				A8C9702C1D382A1B00C1D3C0 /* Assets.xcassets */,
-				A8C9702E1D382A1B00C1D3C0 /* LaunchScreen.storyboard */,
-				A8C970311D382A1B00C1D3C0 /* Info.plist */,
+				A86771861D388F1D00E1CC82 /* Support Files */,
 			);
 			path = CreditCardForm;
 			sourceTree = "<group>";
@@ -179,8 +198,8 @@
 		A8C970391D382A1B00C1D3C0 /* CreditCardFormTests */ = {
 			isa = PBXGroup;
 			children = (
+				A86771841D388EF300E1CC82 /* CreditCardTests.swift */,
 				A8C9705F1D386F9600C1D3C0 /* CreditCardValidationTests.swift */,
-				A8C9703C1D382A1B00C1D3C0 /* Info.plist */,
 			);
 			path = CreditCardFormTests;
 			sourceTree = "<group>";
@@ -464,6 +483,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A86771851D388EF300E1CC82 /* CreditCardTests.swift in Sources */,
 				A8C970601D386F9600C1D3C0 /* CreditCardValidationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

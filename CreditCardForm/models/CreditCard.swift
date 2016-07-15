@@ -12,25 +12,6 @@ import UIKit
 enum CreditCardType {
     case Amex, DinersClub, Discover, JCB, MasterCard, Visa, Unknown
     
-    var name: String {
-        switch self {
-        case .Amex:
-            return "American Express"
-        case .DinersClub:
-            return "Diners Club"
-        case .Discover:
-            return "Discover"
-        case .JCB:
-            return "JCB"
-        case .MasterCard:
-            return "MasterCard"
-        case .Visa:
-            return "Visa"
-        case .Unknown:
-            return "Unknown"
-        }
-    }
-    
     var logo: String {
         switch self {
         case .Amex:
@@ -92,7 +73,7 @@ protocol CreditCardProtocol {
     var expirationDate: String { get set }
     var cvv: String  { get set }
     
-    func expirationDateIsValid(expirationDate: String) -> Bool
+    func expirationDateIsValid() -> Bool
 }
 
 struct CreditCard: CreditCardProtocol {
@@ -101,8 +82,8 @@ struct CreditCard: CreditCardProtocol {
     var cvv: String
     var type: CreditCardType
 
-    func expirationDateIsValid(expirationDate: String) -> Bool {
-        return true
+    func expirationDateIsValid() -> Bool {
+        return isValidExpirationDate(expirationDate)
     }
 }
 
