@@ -69,7 +69,7 @@ enum CreditCardType {
         }
     }
     
-    var numberLength: Int {
+    var cardNumberLength: Int {
         switch self {
         case .Amex: return 15
         case .DinersClub, .Discover, .JCB, .MasterCard, .Visa, .Unknown: return 16
@@ -87,13 +87,11 @@ enum CreditCardType {
 }
 
 protocol CreditCardProtocol {
-    var type: CreditCardType { get }
     var cardNumber: String { get set }
+    var type: CreditCardType { get set }
     var expirationDate: String { get set }
     var cvv: String  { get set }
     
-    func cardTypeFromCardNumber() -> CreditCardType
-    func numberIsValid(number: String) -> Bool
     func expirationDateIsValid(expirationDate: String) -> Bool
 }
 
@@ -101,26 +99,9 @@ struct CreditCard: CreditCardProtocol {
     var cardNumber: String
     var expirationDate: String
     var cvv: String
-    var type: CreditCardType {
-        get {
-            return cardTypeFromCardNumber()
-        }
-    }
-    
-    func cardTypeFromCardNumber() -> CreditCardType {
-        if let cardType = typeFromString(cardNumber) {
-            return cardType
-        }
-        return .Unknown
-    }
-    
-    func numberIsValid(number: String) -> Bool {
-    
-        return true
-    }
-    
+    var type: CreditCardType
+
     func expirationDateIsValid(expirationDate: String) -> Bool {
-        
         return true
     }
 }

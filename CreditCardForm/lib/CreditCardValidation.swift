@@ -8,7 +8,7 @@
 
 import Foundation
 
-func typeFromString(string: String) -> CreditCardType? {
+func creditCardTypeFromString(string: String) -> CreditCardType {
     for type in CreditCardType.allValues {
         let predicate = NSPredicate(format: "SELF MATCHES %@", type.regex)
         let numbersString = onlyNumbersFromString(string)
@@ -16,7 +16,7 @@ func typeFromString(string: String) -> CreditCardType? {
             return type
         }
     }
-    return nil
+    return CreditCardType.Unknown
 }
 
 func onlyNumbersFromString(string: String) -> String {
