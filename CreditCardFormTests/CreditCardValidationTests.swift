@@ -26,99 +26,92 @@ class CreditCardValidationTests: XCTestCase {
     let visa1Number = "4111111111111111"
     let visa2Number = "4012888888881881"
     let visa3Number = "4222222222222"
+    let visa3BadNumber = "4222222222223"
 
     override func setUp() {
         super.setUp()
     }
 
     func testCreditCardTypeFromStringEmptyNumber() {
-        let cardNumber = emptyNumber
-        let cardType = creditCardTypeFromString(cardNumber)
+        let cardType = creditCardTypeFromString(emptyNumber)
         XCTAssertEqual(cardType, CreditCardType.Unknown)
     }
     
     func testCreditCardTypeFromStringRandomNumber() {
-        let cardNumber = randomNumber
-        let cardType = creditCardTypeFromString(cardNumber)
+        let cardType = creditCardTypeFromString(randomNumber)
         XCTAssertEqual(cardType, CreditCardType.Unknown)
     }
     
     func testCreditCardTypeFromStringAmex1() {
-        let cardNumber = amex1Number
-        let cardType = creditCardTypeFromString(cardNumber)
+        let cardType = creditCardTypeFromString(amex1Number)
         XCTAssertEqual(cardType, CreditCardType.Amex)
     }
     
     func testCreditCardTypeFromStringAmex2() {
-        let cardNumber = amex2Number
-        let cardType = creditCardTypeFromString(cardNumber)
+        let cardType = creditCardTypeFromString(amex2Number)
         XCTAssertEqual(cardType, CreditCardType.Amex)
     }
     
     func testCreditCardTypeFromStringDiners1() {
-        let cardNumber = diners1Number
-        let cardType = creditCardTypeFromString(cardNumber)
+        let cardType = creditCardTypeFromString(diners1Number)
         XCTAssertEqual(cardType, CreditCardType.DinersClub)
     }
     
     func testCreditCardTypeFromStringDiners2() {
-        let cardNumber = diners2Number
-        let cardType = creditCardTypeFromString(cardNumber)
+        let cardType = creditCardTypeFromString(diners2Number)
         XCTAssertEqual(cardType, CreditCardType.DinersClub)
     }
     
     func testCreditCardTypeFromStringDiscover1() {
-        let cardNumber = discover1Number
-        let cardType = creditCardTypeFromString(cardNumber)
+        let cardType = creditCardTypeFromString(discover1Number)
         XCTAssertEqual(cardType, CreditCardType.Discover)
     }
     
     func testCreditCardTypeFromStringDiscover2() {
-        let cardNumber = discover2Number
-        let cardType = creditCardTypeFromString(cardNumber)
+        let cardType = creditCardTypeFromString(discover2Number)
         XCTAssertEqual(cardType, CreditCardType.Discover)
     }
     
     func testCreditCardTypeFromStringJCB1() {
-        let cardNumber = jcb1Number
-        let cardType = creditCardTypeFromString(cardNumber)
+        let cardType = creditCardTypeFromString(jcb1Number)
         XCTAssertEqual(cardType, CreditCardType.JCB)
     }
     
     func testCreditCardTypeFromStringJCB2() {
-        let cardNumber = jcb2Number
-        let cardType = creditCardTypeFromString(cardNumber)
+        let cardType = creditCardTypeFromString(jcb2Number)
         XCTAssertEqual(cardType, CreditCardType.JCB)
     }
     
     func testCreditCardTypeFromStringMasterCard1() {
-        let cardNumber = mastercard1Number
-        let cardType = creditCardTypeFromString(cardNumber)
+        let cardType = creditCardTypeFromString(mastercard1Number)
         XCTAssertEqual(cardType, CreditCardType.MasterCard)
     }
     
     func testCreditCardTypeFromStringMasterCard2() {
-        let cardNumber = masterCard2Number
-        let cardType = creditCardTypeFromString(cardNumber)
+        let cardType = creditCardTypeFromString(masterCard2Number)
         XCTAssertEqual(cardType, CreditCardType.MasterCard)
     }
     
     func testCreditCardTypeFromStringVisa1() {
-        let cardNumber = visa1Number
-        let cardType = creditCardTypeFromString(cardNumber)
+        let cardType = creditCardTypeFromString(visa1Number)
         XCTAssertEqual(cardType, CreditCardType.Visa)
     }
     
     func testCreditCardTypeFromStringVisa2() {
-        let cardNumber = visa2Number
-        let cardType = creditCardTypeFromString(cardNumber)
+        let cardType = creditCardTypeFromString(visa2Number)
         XCTAssertEqual(cardType, CreditCardType.Visa)
     }
     
     func testCreditCardTypeFromStringVisa3() {
-        let cardNumber = visa3Number
-        let cardType = creditCardTypeFromString(cardNumber)
+        let cardType = creditCardTypeFromString(visa3Number)
         XCTAssertEqual(cardType, CreditCardType.Visa)
     }
-
+    
+    func testLuhnValidFromStringVisa3() {
+        XCTAssertTrue(visa3Number.isValidCardNumber())
+    }
+    
+    func testLuhnNotValidFromStringVisa3Bad() {
+        XCTAssertFalse(visa3BadNumber.isValidCardNumber())
+    }
 }

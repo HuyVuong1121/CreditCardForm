@@ -24,3 +24,5 @@ func onlyNumbersFromString(string: String) -> String {
     let numbers = string.componentsSeparatedByCharactersInSet(set)
     return numbers.joinWithSeparator("")
 }
+
+
