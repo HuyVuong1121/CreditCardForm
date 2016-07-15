@@ -12,7 +12,7 @@ func creditCardTypeFromString(string: String) -> CreditCardType {
     if string.characters.count < 6 {
         return CreditCardType.Unknown
     }
-    for type in CreditCardType.allValues {
+    for type in CreditCardType.validValues {
         let predicate = NSPredicate(format: "SELF MATCHES %@", type.regex)
         let numbersString = onlyNumbersFromString(string)
         if predicate.evaluateWithObject(numbersString) {
@@ -29,7 +29,7 @@ func onlyNumbersFromString(string: String) -> String {
 }
 
 func isValidExpirationDate(expirationDateString: String) -> Bool {
-    // this is assuming the expiration date is the first day of the month listed on the credit card.
+    // this is assuming the expiration date is the first day of the month after the month listed on the credit card.
     let dateFormatter = NSDateFormatter()
     dateFormatter.dateFormat = "MM/yy"
     if let expirationDate = dateFormatter.dateFromString(expirationDateString) {

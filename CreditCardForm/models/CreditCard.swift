@@ -64,7 +64,7 @@ enum CreditCardType {
         }
     }
     
-    static let allValues = [Amex, DinersClub, Discover, JCB, MasterCard, Visa]
+    static let validValues = [Amex, DinersClub, Discover, JCB, MasterCard, Visa]
 }
 
 protocol CreditCardProtocol {
