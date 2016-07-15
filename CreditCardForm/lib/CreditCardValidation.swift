@@ -28,10 +28,22 @@ func onlyNumbersFromString(string: String) -> String {
     return numbers.joinWithSeparator("")
 }
 
+func padExpirationDateMonth(string: String) -> String {
+    if string.characters.count == 1 {
+        if let number = Int(string) {
+            if number > 1 {
+                return "0" + string
+            } else {
+                return string
+            }
+        }
+    }
+    return string
+}
+
 func passesLuhnAlgorithm(cardNumber: String) -> Bool {
     
     let formattedCardNumber = onlyNumbersFromString(cardNumber)
-    
     let originalCheckDigit = formattedCardNumber.characters.last!
     let characters = formattedCardNumber.characters.dropLast().reverse()
     
@@ -79,6 +91,7 @@ func isValidExpirationDate(expirationDateString: String) -> Bool {
     }
     return false
 }
+
 func isCorrectCreditCardNumberLength(cardNumber: String, creditCardType: CreditCardType) -> Bool {
     return cardNumber.characters.count == creditCardType.cardNumberLength
 }

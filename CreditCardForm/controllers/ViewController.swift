@@ -148,6 +148,32 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        if let text = textField.text {
+            let characterCount = text.characters.count + string.characters.count
+            switch(textField.tag) {
+            case 0:
+                if characterCount <= creditCard.type.cardNumberLength {
+                    return true
+                }
+                return false
+            case 1:
+                if characterCount < 6 {
+                    return true
+                }
+                return false
+            case 2:
+                if characterCount <= creditCard.type.cvvLength {
+                    return true
+                }
+                return false
+            default:
+                return true
+            }
+        }
+        return true
+    }
+    
     func textFieldDidEndEditing(textField: UITextField) {
         textField.layoutIfNeeded()
     }
@@ -173,6 +199,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func evaluateExpiredDate(date: String) {
+        if date.characters.count == 1 {
+            expirationDateTextField.text = padExpirationDateMonth(date)
+        }
         if isValidExpirationDate(date) {
             expirationDateCheckMark.hidden = false
             creditCard.expirationDate = date
