@@ -26,6 +26,7 @@ func onlyNumbersFromString(string: String) -> String {
 }
 
 func isValidExpirationDate(expirationDateString: String) -> Bool {
+    // this is assuming the expiration date is the first day of the month listed on the credit card.
     let dateFormatter = NSDateFormatter()
     dateFormatter.dateFormat = "MM/yy"
     if let expirationDate = dateFormatter.dateFromString(expirationDateString) {
