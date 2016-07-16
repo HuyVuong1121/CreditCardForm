@@ -232,6 +232,11 @@ class CreditCardValidationTests: XCTestCase {
         XCTAssertFalse(nextCreditCardDigitIsValid(card, characterCount: 16, string: "3"))
     }
     
+    func testNextCreditCardDigitIsValidUnKnownType() {
+        let card = CreditCard.init(cardNumber: "123456", expirationDate: "03/17", cvv: "", type: .Unknown)
+        XCTAssertFalse(nextCreditCardDigitIsValid(card, characterCount: 7, string: "3"))
+    }
+    
     func testNextExpirationDateDigitIsValid() {
         XCTAssertTrue(nextExpirationDateDigitIsValid("", characterCount: 1, string: ""))
     }

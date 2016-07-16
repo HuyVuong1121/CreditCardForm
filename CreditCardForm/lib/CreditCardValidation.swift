@@ -110,6 +110,9 @@ func expirationDateIsValid(expirationDateString: String) -> Bool {
 }
 
 func nextCreditCardDigitIsValid(creditCard: CreditCard, characterCount: Int, string: String) -> Bool {
+    if characterCount > 6 && creditCard.type == CreditCardType.Unknown {
+        return false
+    }
     if characterCount <= creditCard.type.cardNumberLength &&  (string == "" || Double(string) != nil) {
         return true
     }

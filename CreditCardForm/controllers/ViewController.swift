@@ -24,6 +24,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var cardNumberCheckMark: UIImageView!
     @IBOutlet weak var expirationDateCheckMark: UIImageView!
     @IBOutlet weak var cvvCheckMark: UIImageView!
+    @IBOutlet weak var cardNumberCheckMarkView: UIView!
+    @IBOutlet weak var expirationDateCheckMarkView: UIView!
+    @IBOutlet weak var cvvCheckMarkView: UIView!
     
     let titleLabelDefault: CGFloat = 59.0
     let cornerRadius: CGFloat = 4.0
@@ -70,7 +73,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         cardNumberCheckMark.hidden = true
         expirationDateCheckMark.hidden = true
         cvvCheckMark.hidden = true
-        cvvTextField.enabled = false
     }
     
     func setupControlLayers() {
@@ -85,7 +87,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
         expirationDateTextField.layer.borderWidth = borderWidth
         cvvTextField.layer.cornerRadius = cornerRadius
         cvvTextField.layer.borderWidth = borderWidth
-        cvvTextField.layer.borderColor = UIColor.clearColor().CGColor
+        cvvTextField.layer.borderColor = UIColor.darkGrayColor().CGColor
+        cardNumberCheckMarkView.layer.cornerRadius = cardNumberCheckMarkView.frame.width/2.0
+        cardNumberCheckMarkView.layer.borderWidth = borderWidth
+        cardNumberCheckMarkView.layer.borderColor = Theme.sharedInstance.darkThemeColor().CGColor
+        expirationDateCheckMarkView.layer.cornerRadius = expirationDateCheckMarkView.frame.width/2.0
+        expirationDateCheckMarkView.layer.borderWidth = borderWidth
+        expirationDateCheckMarkView.layer.borderColor = Theme.sharedInstance.darkThemeColor().CGColor
+        cvvCheckMarkView.layer.cornerRadius = cvvCheckMarkView.frame.width/2.0
+        cvvCheckMarkView.layer.borderWidth = borderWidth
+        cvvCheckMarkView.layer.borderColor = Theme.sharedInstance.darkThemeColor().CGColor
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -182,15 +193,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let cardNumberIsValid = creditCard.type != .Unknown && creditCardNumberLengthIsCorrect(cardNumber, creditCardType: creditCard.type) && passesLuhnAlgorithm(cardNumber)
         if cardNumberIsValid {
             cardNumberCheckMark.hidden = false
+            cardNumberCheckMarkView.hidden = true
             creditCard.cardNumber = cardNumber
             expirationDateTextField.enabled = true
             cvvTextField.enabled = true
             cvvTextField.layer.borderColor = UIColor.darkGrayColor().CGColor
         } else {
             cardNumberCheckMark.hidden = true
+            cardNumberCheckMarkView.hidden = false
             creditCard.cardNumber = ""
-            cvvTextField.text = ""
-            creditCard.cvv = ""
         }
         evaluateCVV(creditCard.cvv)
     }
@@ -201,9 +212,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
         if expirationDateIsValid(date) {
             expirationDateCheckMark.hidden = false
+            expirationDateCheckMarkView.hidden = true
             creditCard.expirationDate = date
         } else {
             expirationDateCheckMark.hidden = true
+            expirationDateCheckMarkView.hidden = false
             creditCard.expirationDate = ""
         }
     }
@@ -211,9 +224,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func evaluateCVV(cvv: String) {
         if cvv.characters.count == creditCard.type.cvvLength {
             cvvCheckMark.hidden = false
+            cvvCheckMarkView.hidden = true
             creditCard.cvv = cvv
         } else {
             cvvCheckMark.hidden = true
+            cvvCheckMarkView.hidden = false
             creditCard.cvv = ""
         }
         if creditCard.type.cvvLength == 3 {
