@@ -173,10 +173,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(textField: UITextField) {
-        if textField.tag == 2 {
-            if cvvImageView.image == nil {
-                cvvImageView.image = UIImage(named: "Cards_CVV.png")
-            }
+        if textField.tag == 2 && cvvImageView.image == nil {
+            cvvImageView.image = UIImage(named: "Cards_CVV.png")
         }
     }
     
@@ -237,13 +235,18 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let cardNumberIsValid = creditCard.creditCardNumberIsValid()
         let cardExpirationIsValid = creditCard.expirationDateIsValid()
         let cardCVVIsValid = creditCard.cvvNumberLengthIsValid()
+        let everythingIsValid = cardTypeIsValid && cardNumberIsValid && cardExpirationIsValid && cardCVVIsValid
         
-        if !cardTypeIsValid || !cardNumberIsValid {
-            message = "Please correct the card number"
-        } else if !cardExpirationIsValid {
-            message = "Please correct the expiration date"
-        } else if !cardCVVIsValid {
-            message = "Please correct the CVV number"
+        if everythingIsValid {
+            resignFirstResponders()
+        } else {
+            if !cardTypeIsValid || !cardNumberIsValid {
+                message = "Please correct the card number"
+            } else if !cardExpirationIsValid {
+                message = "Please correct the expiration date"
+            } else if !cardCVVIsValid {
+                message = "Please correct the CVV number"
+            }
         }
         showAlertWithMessage(title, message: message)
     }

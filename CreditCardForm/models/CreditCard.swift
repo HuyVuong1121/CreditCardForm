@@ -61,8 +61,7 @@ enum CreditCardType {
     var cvvLength: Int {
         switch self {
         case .Amex: return 4
-        case .DinersClub, .Discover, .JCB, .MasterCard, .Visa: return 3
-        case .Unknown: return 5
+        case .DinersClub, .Discover, .JCB, .MasterCard, .Visa, .Unknown: return 3
         }
     }
     
