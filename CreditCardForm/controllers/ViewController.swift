@@ -110,9 +110,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func resignFirstResponders() {
-        cardNumberTextField.resignFirstResponder()
-        expirationDateTextField.resignFirstResponder()
-        cvvTextField.resignFirstResponder()
+        if cardNumberTextField.isFirstResponder() {
+            cardNumberTextField.resignFirstResponder()
+        }
+        if expirationDateTextField.isFirstResponder() {
+            expirationDateTextField.resignFirstResponder()
+        }
+        if cvvTextField.isFirstResponder() {
+            cvvTextField.resignFirstResponder()
+        }
     }
     
     func keyboardWillShow(notification: NSNotification) {
