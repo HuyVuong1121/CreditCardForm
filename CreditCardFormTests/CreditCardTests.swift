@@ -76,7 +76,7 @@ class CreditCardTests: XCTestCase {
     
     func testUnknownCard() {
         let card = CreditCard.init(cardNumber: "", expirationDate: "", cvv: "", type: .Unknown)
-        XCTAssertEqual(card.type.logo, "Cards_Blank.png")
+        XCTAssertEqual(card.type.logo, "Cards_GenericCard.png")
         XCTAssertEqual(card.type.regex, "^$")
         XCTAssertEqual(card.type.cardNumberLength, 16)
         XCTAssertEqual(card.type.cvvLength, 3)
