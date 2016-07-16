@@ -34,7 +34,7 @@ class CreditCardTests: XCTestCase {
         let card = CreditCard.init(cardNumber: "", expirationDate: "", cvv: "", type: .DinersClub)
         XCTAssertEqual(card.type.logo, "Cards_Dinerclub.png")
         XCTAssertEqual(card.type.regex, "^3(?:0[0-5]|[68][0-9])[0-9]{3,}$")
-        XCTAssertEqual(card.type.cardNumberLength, 16)
+        XCTAssertEqual(card.type.cardNumberLength, 14)
         XCTAssertEqual(card.type.cvvLength, 3)
     }
     
@@ -72,7 +72,7 @@ class CreditCardTests: XCTestCase {
     
     func testUnknownCard() {
         let card = CreditCard.init(cardNumber: "", expirationDate: "", cvv: "", type: .Unknown)
-        XCTAssertEqual(card.type.logo, "Cards_GenericCard.png")
+        XCTAssertEqual(card.type.logo, "Cards_Blank.png")
         XCTAssertEqual(card.type.regex, "^$")
         XCTAssertEqual(card.type.cardNumberLength, 16)
         XCTAssertEqual(card.type.cvvLength, 3)
