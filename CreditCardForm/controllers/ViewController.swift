@@ -29,10 +29,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     let titleLabelDefault: CGFloat = 59.0
     var creditCard: CreditCard = CreditCard.init(cardNumber: "", expirationDate: "", cvv: "", type: .Unknown)
     
-    enum TextFieldType: Int {
-        case NumberTextField = 0, ExpirationDateTextField, CVVTextField
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         Theme.sharedInstance.setNavigationBarAppearance(navigationController)

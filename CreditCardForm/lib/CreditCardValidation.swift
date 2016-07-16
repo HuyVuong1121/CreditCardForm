@@ -47,7 +47,6 @@ func padExpirationDateMonth(string: String) -> String {
 }
 
 func passesLuhnAlgorithm(cardNumber: String) -> Bool {
-    
     let formattedCardNumber = onlyNumbersFromString(cardNumber)
     let originalCheckDigit = formattedCardNumber.characters.last!
     let characters = formattedCardNumber.characters.dropLast().reverse()

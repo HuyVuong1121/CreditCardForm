@@ -15,6 +15,7 @@ class CreditCardValidationTests: XCTestCase {
     let shortNumber = "3782"
     let randomNumber = "asoidfwneroqj"
     let amex1Number = "378282246310005"
+    let amex1BadLuhnNumber = "378282246310004"
     let amex2Number = "371449635398431"
     let diners1Number = "30569309025904"
     let diners2Number = "38520000023237"
@@ -150,12 +151,12 @@ class CreditCardValidationTests: XCTestCase {
     }
     
     func testPassesLuhnAlgorithm() {
-        let passesLuhn = passesLuhnAlgorithm(visa3Number)
+        let passesLuhn = passesLuhnAlgorithm(amex1Number)
         XCTAssertTrue(passesLuhn)
     }
     
     func testPassesLuhnAlgorithmBadDigit() {
-        let passesLuhn = passesLuhnAlgorithm(visa3BadLuhnNumber)
+        let passesLuhn = passesLuhnAlgorithm(amex1BadLuhnNumber)
         XCTAssertFalse(passesLuhn)
     }
     
@@ -172,6 +173,11 @@ class CreditCardValidationTests: XCTestCase {
     func testPadExpirationDateMonthWith09() {
         let paddedString = padExpirationDateMonth("09")
         XCTAssertEqual(paddedString, "09")
+    }
+    
+    func testPadExpirationDateMonthWithQ() {
+        let paddedString = padExpirationDateMonth("Q")
+        XCTAssertEqual(paddedString, "Q")
     }
     
     func testIsValidExpirationDateFormat1DigitBad() {
@@ -204,5 +210,61 @@ class CreditCardValidationTests: XCTestCase {
     
     func testIsValidExpirationDateFormat1Digit0() {
         XCTAssertTrue(isValidExpirationDateFormat(padExpirationDateMonth("0")))
+    }
+    
+    func testIsValidNextCreditCardDigit() {
+        let card = CreditCard.init(cardNumber: "", expirationDate: "03/17", cvv: "", type: .Amex)
+        XCTAssertTrue(isValidNextCreditCardDigit(card, characterCount: 1, string: "3"))
+    }
+    
+    func testIsValidNextCreditCardDigitEmptyString() {
+        let card = CreditCard.init(cardNumber: "", expirationDate: "03/17", cvv: "", type: .Amex)
+        XCTAssertTrue(isValidNextCreditCardDigit(card, characterCount: 1, string: ""))
+    }
+    
+    func testIsValidNextCreditCardDigitBadDigit() {
+        let card = CreditCard.init(cardNumber: "", expirationDate: "03/17", cvv: "", type: .Amex)
+        XCTAssertFalse(isValidNextCreditCardDigit(card, characterCount: 1, string: "A"))
+    }
+    
+    func testIsValidNextCreditCardDigitTooLong() {
+        let card = CreditCard.init(cardNumber: "", expirationDate: "03/17", cvv: "", type: .Amex)
+        XCTAssertFalse(isValidNextCreditCardDigit(card, characterCount: 16, string: "3"))
+    }
+    
+    func testIsValidNextExpirationDateDigit() {
+        XCTAssertTrue(isValidNextExpirationDateDigit("", characterCount: 1, string: ""))
+    }
+    
+    func testIsValidNextExpirationDateDigit3Digits() {
+        XCTAssertTrue(isValidNextExpirationDateDigit("01", characterCount: 3, string: "/"))
+    }
+    
+    func testIsValidNextExpirationDateDigitTooManyDigits() {
+        XCTAssertFalse(isValidNextExpirationDateDigit("01/18", characterCount: 6, string: "9"))
+    }
+    
+    func testIsValidNextExpirationDateDigitBadFormat() {
+        XCTAssertFalse(isValidNextExpirationDateDigit("01", characterCount: 3, string: "?"))
+    }
+    
+    func testIsValidNextCVVDigit() {
+        let card = CreditCard.init(cardNumber: "", expirationDate: "03/17", cvv: "", type: .Amex)
+        XCTAssertTrue(isValidNextCVVDigit(card, characterCount: 1, string: "3"))
+    }
+    
+    func testIsValidNextCVVDigitEmptyString() {
+        let card = CreditCard.init(cardNumber: "", expirationDate: "03/17", cvv: "", type: .Amex)
+        XCTAssertTrue(isValidNextCVVDigit(card, characterCount: 1, string: ""))
+    }
+    
+    func testIsValidNextCVVDigitBadDigit() {
+        let card = CreditCard.init(cardNumber: "", expirationDate: "03/17", cvv: "", type: .Amex)
+        XCTAssertFalse(isValidNextCVVDigit(card, characterCount: 1, string: "A"))
+    }
+    
+    func testIsValidNextCVVDigitTooLong() {
+        let card = CreditCard.init(cardNumber: "", expirationDate: "03/17", cvv: "", type: .Amex)
+        XCTAssertFalse(isValidNextCVVDigit(card, characterCount: 5, string: "3"))
     }
 }
