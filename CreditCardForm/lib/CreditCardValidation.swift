@@ -73,6 +73,9 @@ func passesLuhnAlgorithm(cardNumber: String) -> Bool {
 }
 
 func expirationDateFormatIsValid(expirationDateString: String) -> Bool {
+    if expirationDateString == "0" {
+        return true
+    }
     switch expirationDateString.characters.count {
         case 1:
             dateFormatter.dateFormat = "M"
@@ -85,7 +88,7 @@ func expirationDateFormatIsValid(expirationDateString: String) -> Bool {
         default:
             dateFormatter.dateFormat = "MM/yy"
     }
-    if expirationDateString == "0" || dateFormatter.dateFromString(expirationDateString) != nil {
+    if dateFormatter.dateFromString(expirationDateString) != nil {
         return true
     }
     return false

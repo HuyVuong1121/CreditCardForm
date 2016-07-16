@@ -89,7 +89,7 @@ struct CreditCard: CreditCardProtocol {
     var type: CreditCardType
     
     func creditCardIsValid() -> Bool {
-        return creditCardNumberIsValid() && creditCardExpirationDateIsValid() && creditCardCVVNumberLengthIsValid()
+        return type != .Unknown && creditCardNumberIsValid() && creditCardExpirationDateIsValid() && creditCardCVVNumberLengthIsValid()
     }
     
     func creditCardNumberIsValid() -> Bool {
