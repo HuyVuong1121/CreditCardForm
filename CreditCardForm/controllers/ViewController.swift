@@ -151,7 +151,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             let characterCount = text.characters.count + string.characters.count
             switch(textField.tag) {
             case 0:
-                if characterCount <= creditCard.type.cardNumberLength {
+                if characterCount <= creditCard.type.cardNumberLength &&  (string == "" || Double(string) != nil) {
                     return true
                 }
                 return false
@@ -167,7 +167,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 }
                 return false
             case 2:
-                if characterCount <= creditCard.type.cvvLength {
+                if characterCount <= creditCard.type.cvvLength &&  (string == "" || Int(string) != nil) {
                     return true
                 }
                 return false
