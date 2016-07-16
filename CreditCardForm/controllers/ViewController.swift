@@ -219,7 +219,28 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
 
     @IBAction func submitButtonPressed(sender: AnyObject) {
+        let title = "New Credit Card"
+        var message = "Your credit card is valid!"
+        let cardTypeIsValid = creditCard.type != .Unknown
+        let cardNumberIsValid = creditCard.creditCardNumberIsValid()
+        let cardExpirationIsValid = creditCard.expirationDateIsValid()
+        let cardCVVIsValid = creditCard.cvvNumberLengthIsValid()
         
+        if !cardTypeIsValid || !cardNumberIsValid {
+            message = "Please correct your card number"
+        } else if !cardExpirationIsValid {
+            message = "Please correct your expiration date"
+        } else if !cardCVVIsValid {
+            message = "Please correct your CVV number"
+        }
+        showAlertWithMessage(title, message: message)
+    }
+    
+    func showAlertWithMessage(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "Ok", style: .Cancel) { (action) in}
+        alertController.addAction(cancelAction)
+        self.presentViewController(alertController, animated: true) {}
     }
 }
 

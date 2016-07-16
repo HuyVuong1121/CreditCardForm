@@ -75,6 +75,7 @@ protocol CreditCardProtocol {
     var expirationDate: String { get set }
     var cvv: String  { get set }
     
+    func creditCardNumberIsValid() -> Bool
     func creditCardNumberLengthIsValid() -> Bool
     func lastDigitIsValid() -> Bool
     func expirationDateIsValid() -> Bool
@@ -86,6 +87,10 @@ struct CreditCard: CreditCardProtocol {
     var expirationDate: String
     var cvv: String
     var type: CreditCardType
+    
+    func creditCardNumberIsValid() -> Bool {
+        return creditCardNumberLengthIsValid() && lastDigitIsValid()
+    }
     
     func creditCardNumberLengthIsValid() -> Bool {
         return isCorrectCreditCardNumberLength(cardNumber, creditCardType: type)
