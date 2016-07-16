@@ -156,8 +156,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 }
                 return false
             case 1:
-                if characterCount < 6 {
+                if string == "" {
                     return true
+                }
+                if 1...5 ~= characterCount {
+                    if text.characters.count <= 2 {
+                        expirationDateTextField.text = padExpirationDateMonth(text)
+                    }
+                    return isValidExpirationDateFormat(text + string)
                 }
                 return false
             case 2:

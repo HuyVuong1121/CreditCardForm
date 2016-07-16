@@ -8,6 +8,8 @@
 
 import Foundation
 
+let dateFormatter = NSDateFormatter()
+
 func creditCardTypeFromString(string: String) -> CreditCardType {
     if string.characters.count < 6 {
         return CreditCardType.Unknown
@@ -51,34 +53,47 @@ func passesLuhnAlgorithm(cardNumber: String) -> Bool {
     let characters = formattedCardNumber.characters.dropLast().reverse()
     
     var digitSum = 0
-    
     for (idx, character) in characters.enumerate() {
         let value = Int(String(character)) ?? 0
         if idx % 2 == 0 {
             var product = value * 2
-            
             if product > 9 {
                 product = product - 9
             }
-            
             digitSum = digitSum + product
-        }
-        else {
+        } else {
             digitSum = digitSum + value
         }
     }
     
     digitSum = digitSum * 9
-    
     let computedCheckDigit = digitSum % 10
-    
     let originalCheckDigitInt = Int(String(originalCheckDigit))
+    
     return originalCheckDigitInt == computedCheckDigit
+}
+
+func isValidExpirationDateFormat(expirationDateString: String) -> Bool {
+    switch expirationDateString.characters.count {
+        case 1:
+            dateFormatter.dateFormat = "M"
+        case 2:
+            dateFormatter.dateFormat = "MM"
+        case 3:
+            dateFormatter.dateFormat = "MM/"
+        case 4:
+            dateFormatter.dateFormat = "MM/y"
+        default:
+            dateFormatter.dateFormat = "MM/yy"
+    }
+    if expirationDateString == "0" || dateFormatter.dateFromString(expirationDateString) != nil {
+        return true
+    }
+    return false
 }
 
 func isValidExpirationDate(expirationDateString: String) -> Bool {
     // this is assuming the expiration date is the first day of the month after the month listed on the credit card.
-    let dateFormatter = NSDateFormatter()
     dateFormatter.dateFormat = "MM/yy"
     if let expirationDate = dateFormatter.dateFromString(expirationDateString) {
         let now = NSDate()

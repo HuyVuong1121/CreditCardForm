@@ -173,4 +173,36 @@ class CreditCardValidationTests: XCTestCase {
         let paddedString = padExpirationDateMonth("09")
         XCTAssertEqual(paddedString, "09")
     }
+    
+    func testIsValidExpirationDateFormat1DigitBad() {
+        XCTAssertFalse(isValidExpirationDateFormat(padExpirationDateMonth("A")))
+    }
+    
+    func testIsValidExpirationDateFormat1DigitBad9() {
+        XCTAssertTrue(isValidExpirationDateFormat(padExpirationDateMonth("9")))
+    }
+    
+    func testIsValidExpirationDateFormat1Digit() {
+        XCTAssertTrue(isValidExpirationDateFormat(padExpirationDateMonth("1")))
+    }
+    
+    func testIsValidExpirationDateFormat2Digit() {
+        XCTAssertTrue(isValidExpirationDateFormat(padExpirationDateMonth("12")))
+    }
+    
+    func testIsValidExpirationDateFormat3Digit() {
+        XCTAssertTrue(isValidExpirationDateFormat(padExpirationDateMonth("03/")))
+    }
+    
+    func testIsValidExpirationDateFormat4Digit() {
+        XCTAssertTrue(isValidExpirationDateFormat(padExpirationDateMonth("03/1")))
+    }
+    
+    func testIsValidExpirationDateFormat5Digit() {
+        XCTAssertTrue(isValidExpirationDateFormat(padExpirationDateMonth("03/17")))
+    }
+    
+    func testIsValidExpirationDateFormat1Digit0() {
+        XCTAssertTrue(isValidExpirationDateFormat(padExpirationDateMonth("0")))
+    }
 }
