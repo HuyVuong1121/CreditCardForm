@@ -151,26 +151,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
             let characterCount = text.characters.count + string.characters.count
             switch(textField.tag) {
             case 0:
-                if characterCount <= creditCard.type.cardNumberLength &&  (string == "" || Double(string) != nil) {
-                    return true
-                }
-                return false
+                return isValidNextCreditCardDigit(creditCard, characterCount: characterCount, string: string)
             case 1:
-                if string == "" {
-                    return true
+                if text.characters.count <= 2 {
+                    expirationDateTextField.text = padExpirationDateMonth(text)
                 }
-                if 1...5 ~= characterCount {
-                    if text.characters.count <= 2 {
-                        expirationDateTextField.text = padExpirationDateMonth(text)
-                    }
-                    return isValidExpirationDateFormat(text + string)
-                }
-                return false
+                return isValidNextExpirationDateDigit(text, characterCount: characterCount, string: string)
             case 2:
-                if characterCount <= creditCard.type.cvvLength &&  (string == "" || Int(string) != nil) {
-                    return true
-                }
-                return false
+                return isValidNextCVVDigit(creditCard, characterCount: characterCount, string: string)
             default:
                 return true
             }

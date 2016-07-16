@@ -110,6 +110,30 @@ func isValidExpirationDate(expirationDateString: String) -> Bool {
     return false
 }
 
+func isValidNextCreditCardDigit(creditCard: CreditCard, characterCount: Int, string: String) -> Bool {
+    if characterCount <= creditCard.type.cardNumberLength &&  (string == "" || Double(string) != nil) {
+        return true
+    }
+    return false
+}
+
+func isValidNextExpirationDateDigit(text: String, characterCount: Int, string: String) -> Bool {
+    if string == "" {
+        return true
+    }
+    if 1...5 ~= characterCount {
+        return isValidExpirationDateFormat(text + string)
+    }
+    return false
+}
+
+func isValidNextCVVDigit(creditCard: CreditCard, characterCount: Int, string: String) -> Bool {
+    if characterCount <= creditCard.type.cvvLength &&  (string == "" || Int(string) != nil) {
+        return true
+    }
+    return false
+}
+
 func isCorrectCreditCardNumberLength(cardNumber: String, creditCardType: CreditCardType) -> Bool {
     return cardNumber.characters.count == creditCardType.cardNumberLength
 }
