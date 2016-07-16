@@ -149,14 +149,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
             let characterCount = text.characters.count + string.characters.count
             switch(textField.tag) {
             case 0:
-                return isValidNextCreditCardDigit(creditCard, characterCount: characterCount, string: string)
+                return nextCreditCardDigitIsValid(creditCard, characterCount: characterCount, string: string)
             case 1:
                 if text.characters.count <= 2 {
                     expirationDateTextField.text = padExpirationDateMonth(text)
                 }
-                return isValidNextExpirationDateDigit(text, characterCount: characterCount, string: string)
+                return nextExpirationDateDigitIsValid(text, characterCount: characterCount, string: string)
             case 2:
-                return isValidNextCVVDigit(creditCard, characterCount: characterCount, string: string)
+                return nextCVVDigitIsValid(creditCard, characterCount: characterCount, string: string)
             default:
                 return true
             }
@@ -177,7 +177,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func evaluateCardNumber(cardNumber: String) {
         creditCard.type = creditCardTypeFromString(cardNumber)
         cardImageView.image = UIImage(named: creditCard.type.logo)
-        let cardNumberIsValid = creditCard.type != .Unknown && isCorrectCreditCardNumberLength(cardNumber, creditCardType: creditCard.type) && passesLuhnAlgorithm(cardNumber)
+        let cardNumberIsValid = creditCard.type != .Unknown && creditCardNumberLengthIsCorrect(cardNumber, creditCardType: creditCard.type) && passesLuhnAlgorithm(cardNumber)
         if cardNumberIsValid {
             cardNumberCheckMark.hidden = false
             creditCard.cardNumber = cardNumber
@@ -197,7 +197,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         if date.characters.count <= 2 {
             expirationDateTextField.text = padExpirationDateMonth(date)
         }
-        if isValidExpirationDate(date) {
+        if expirationDateIsValid(date) {
             expirationDateCheckMark.hidden = false
             creditCard.expirationDate = date
         } else {
@@ -226,8 +226,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         var message = "Your credit card is valid!"
         let cardTypeIsValid = creditCard.type != .Unknown
         let cardNumberIsValid = creditCard.creditCardNumberIsValid()
-        let cardExpirationIsValid = creditCard.expirationDateIsValid()
-        let cardCVVIsValid = creditCard.cvvNumberLengthIsValid()
+        let cardExpirationIsValid = creditCard.creditCardExpirationDateIsValid()
+        let cardCVVIsValid = creditCard.creditCardCVVNumberLengthIsValid()
         
         if creditCard.creditCardIsValid() {
             resignFirstResponders()

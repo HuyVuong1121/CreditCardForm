@@ -72,7 +72,7 @@ func passesLuhnAlgorithm(cardNumber: String) -> Bool {
     return originalCheckDigitInt == computedCheckDigit
 }
 
-func isValidExpirationDateFormat(expirationDateString: String) -> Bool {
+func expirationDateFormatIsValid(expirationDateString: String) -> Bool {
     switch expirationDateString.characters.count {
         case 1:
             dateFormatter.dateFormat = "M"
@@ -91,7 +91,7 @@ func isValidExpirationDateFormat(expirationDateString: String) -> Bool {
     return false
 }
 
-func isValidExpirationDate(expirationDateString: String) -> Bool {
+func expirationDateIsValid(expirationDateString: String) -> Bool {
     // this is assuming the expiration date is the first day of the month after the month listed on the credit card.
     dateFormatter.dateFormat = "MM/yy"
     if let expirationDate = dateFormatter.dateFromString(expirationDateString) {
@@ -109,35 +109,35 @@ func isValidExpirationDate(expirationDateString: String) -> Bool {
     return false
 }
 
-func isValidNextCreditCardDigit(creditCard: CreditCard, characterCount: Int, string: String) -> Bool {
+func nextCreditCardDigitIsValid(creditCard: CreditCard, characterCount: Int, string: String) -> Bool {
     if characterCount <= creditCard.type.cardNumberLength &&  (string == "" || Double(string) != nil) {
         return true
     }
     return false
 }
 
-func isValidNextExpirationDateDigit(text: String, characterCount: Int, string: String) -> Bool {
+func nextExpirationDateDigitIsValid(text: String, characterCount: Int, string: String) -> Bool {
     if string == "" {
         return true
     }
     if 1...5 ~= characterCount {
-        return isValidExpirationDateFormat(text + string)
+        return expirationDateFormatIsValid(text + string)
     }
     return false
 }
 
-func isValidNextCVVDigit(creditCard: CreditCard, characterCount: Int, string: String) -> Bool {
+func nextCVVDigitIsValid(creditCard: CreditCard, characterCount: Int, string: String) -> Bool {
     if characterCount <= creditCard.type.cvvLength &&  (string == "" || Int(string) != nil) {
         return true
     }
     return false
 }
 
-func isCorrectCreditCardNumberLength(cardNumber: String, creditCardType: CreditCardType) -> Bool {
+func creditCardNumberLengthIsCorrect(cardNumber: String, creditCardType: CreditCardType) -> Bool {
     return cardNumber.characters.count == creditCardType.cardNumberLength
 }
 
-func isCorrectCVVLength(cvv: String, creditCardType: CreditCardType) -> Bool {
+func cvvLengthIsCorrect(cvv: String, creditCardType: CreditCardType) -> Bool {
     return cvv.characters.count == creditCardType.cvvLength
 }
 

@@ -77,9 +77,9 @@ protocol CreditCardProtocol {
     func creditCardIsValid() -> Bool
     func creditCardNumberIsValid() -> Bool
     func creditCardNumberLengthIsValid() -> Bool
-    func lastDigitIsValid() -> Bool
-    func expirationDateIsValid() -> Bool
-    func cvvNumberLengthIsValid() -> Bool
+    func creditCardLastDigitIsValid() -> Bool
+    func creditCardExpirationDateIsValid() -> Bool
+    func creditCardCVVNumberLengthIsValid() -> Bool
 }
 
 struct CreditCard: CreditCardProtocol {
@@ -89,27 +89,27 @@ struct CreditCard: CreditCardProtocol {
     var type: CreditCardType
     
     func creditCardIsValid() -> Bool {
-        return creditCardNumberIsValid() && expirationDateIsValid() && cvvNumberLengthIsValid()
+        return creditCardNumberIsValid() && creditCardExpirationDateIsValid() && creditCardCVVNumberLengthIsValid()
     }
     
     func creditCardNumberIsValid() -> Bool {
-        return creditCardNumberLengthIsValid() && lastDigitIsValid()
+        return creditCardNumberLengthIsValid() && creditCardLastDigitIsValid()
     }
     
     func creditCardNumberLengthIsValid() -> Bool {
-        return isCorrectCreditCardNumberLength(cardNumber, creditCardType: type)
+        return creditCardNumberLengthIsCorrect(cardNumber, creditCardType: type)
     }
     
-    func lastDigitIsValid() -> Bool {
+    func creditCardLastDigitIsValid() -> Bool {
         return passesLuhnAlgorithm(cardNumber)
     }
     
-    func expirationDateIsValid() -> Bool {
-        return isValidExpirationDate(expirationDate)
+    func creditCardExpirationDateIsValid() -> Bool {
+        return expirationDateIsValid(expirationDate)
     }
     
-    func cvvNumberLengthIsValid() -> Bool {
-        return isCorrectCVVLength(cvv, creditCardType: type)
+    func creditCardCVVNumberLengthIsValid() -> Bool {
+        return cvvLengthIsCorrect(cvv, creditCardType: type)
     }
 }
 

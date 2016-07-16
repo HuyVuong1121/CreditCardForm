@@ -116,14 +116,14 @@ class CreditCardValidationTests: XCTestCase {
     }
     
     func testIsValidateExpirationDateBadDate() {
-        let isValidDate = isValidExpirationDate("aa/bb")
+        let isValidDate = expirationDateIsValid("aa/bb")
         XCTAssertFalse(isValidDate)
     }
     
     func testIsValidExpirationDateCurrentMonth() {
         dateFormatter.dateFormat = "MM/yy"
         let expirationDateString = dateFormatter.stringFromDate(NSDate())
-        let isValidDate = isValidExpirationDate(expirationDateString)
+        let isValidDate = expirationDateIsValid(expirationDateString)
         XCTAssertTrue(isValidDate)
     }
     
@@ -131,22 +131,22 @@ class CreditCardValidationTests: XCTestCase {
         let expirationDate = NSCalendar.currentCalendar().dateByAddingUnit(.Month, value: -1, toDate: NSDate(), options:[])
         dateFormatter.dateFormat = "MM/yy"
         let expirationDateString = dateFormatter.stringFromDate(expirationDate!)
-        let isValidDate = isValidExpirationDate(expirationDateString)
+        let isValidDate = expirationDateIsValid(expirationDateString)
         XCTAssertFalse(isValidDate)
     }
     
     func testIsCorrectCreditCardNumberLengthBadNumber() {
-        let isCorrectLength = isCorrectCreditCardNumberLength(amex1Number, creditCardType: .Discover)
+        let isCorrectLength = creditCardNumberLengthIsCorrect(amex1Number, creditCardType: .Discover)
         XCTAssertFalse(isCorrectLength)
     }
     
     func testIsCorrectCreditCardNumberLength() {
-        let isCorrectLength = isCorrectCreditCardNumberLength(amex1Number, creditCardType: .Amex)
+        let isCorrectLength = creditCardNumberLengthIsCorrect(amex1Number, creditCardType: .Amex)
         XCTAssertTrue(isCorrectLength)
     }
     
     func testIsCorrectCVVLengthBadCVV() {
-        let isCorrectLength = isCorrectCVVLength(amexCVVNumber, creditCardType: .Discover)
+        let isCorrectLength = cvvLengthIsCorrect(amexCVVNumber, creditCardType: .Discover)
         XCTAssertFalse(isCorrectLength)
     }
     
@@ -180,91 +180,91 @@ class CreditCardValidationTests: XCTestCase {
         XCTAssertEqual(paddedString, "Q")
     }
     
-    func testIsValidExpirationDateFormat1DigitBad() {
-        XCTAssertFalse(isValidExpirationDateFormat(padExpirationDateMonth("A")))
+    func testExpirationDateFormatIsValid1DigitBad() {
+        XCTAssertFalse(expirationDateFormatIsValid(padExpirationDateMonth("A")))
     }
     
-    func testIsValidExpirationDateFormat1DigitBad9() {
-        XCTAssertTrue(isValidExpirationDateFormat(padExpirationDateMonth("9")))
+    func testExpirationDateFormatIsValid1DigitBad9() {
+        XCTAssertTrue(expirationDateFormatIsValid(padExpirationDateMonth("9")))
     }
     
-    func testIsValidExpirationDateFormat1Digit() {
-        XCTAssertTrue(isValidExpirationDateFormat(padExpirationDateMonth("1")))
+    func testExpirationDateFormatIsValid1Digit() {
+        XCTAssertTrue(expirationDateFormatIsValid(padExpirationDateMonth("1")))
     }
     
-    func testIsValidExpirationDateFormat2Digit() {
-        XCTAssertTrue(isValidExpirationDateFormat(padExpirationDateMonth("12")))
+    func testExpirationDateFormatIsValid2Digit() {
+        XCTAssertTrue(expirationDateFormatIsValid(padExpirationDateMonth("12")))
     }
     
-    func testIsValidExpirationDateFormat3Digit() {
-        XCTAssertTrue(isValidExpirationDateFormat(padExpirationDateMonth("03/")))
+    func testExpirationDateFormatIsValid3Digit() {
+        XCTAssertTrue(expirationDateFormatIsValid(padExpirationDateMonth("03/")))
     }
     
-    func testIsValidExpirationDateFormat4Digit() {
-        XCTAssertTrue(isValidExpirationDateFormat(padExpirationDateMonth("03/1")))
+    func testExpirationDateFormatIsValid4Digit() {
+        XCTAssertTrue(expirationDateFormatIsValid(padExpirationDateMonth("03/1")))
     }
     
-    func testIsValidExpirationDateFormat5Digit() {
-        XCTAssertTrue(isValidExpirationDateFormat(padExpirationDateMonth("03/17")))
+    func testExpirationDateFormatIsValid5Digit() {
+        XCTAssertTrue(expirationDateFormatIsValid(padExpirationDateMonth("03/17")))
     }
     
-    func testIsValidExpirationDateFormat1Digit0() {
-        XCTAssertTrue(isValidExpirationDateFormat(padExpirationDateMonth("0")))
+    func testExpirationDateFormatIsValid1Digit0() {
+        XCTAssertTrue(expirationDateFormatIsValid(padExpirationDateMonth("0")))
     }
     
-    func testIsValidNextCreditCardDigit() {
+    func testNextCreditCardDigitIsValid() {
         let card = CreditCard.init(cardNumber: "", expirationDate: "03/17", cvv: "", type: .Amex)
-        XCTAssertTrue(isValidNextCreditCardDigit(card, characterCount: 1, string: "3"))
+        XCTAssertTrue(nextCreditCardDigitIsValid(card, characterCount: 1, string: "3"))
     }
     
-    func testIsValidNextCreditCardDigitEmptyString() {
+    func testNextCreditCardDigitIsValidEmptyString() {
         let card = CreditCard.init(cardNumber: "", expirationDate: "03/17", cvv: "", type: .Amex)
-        XCTAssertTrue(isValidNextCreditCardDigit(card, characterCount: 1, string: ""))
+        XCTAssertTrue(nextCreditCardDigitIsValid(card, characterCount: 1, string: ""))
     }
     
-    func testIsValidNextCreditCardDigitBadDigit() {
+    func testNextCreditCardDigitIsValidBadDigit() {
         let card = CreditCard.init(cardNumber: "", expirationDate: "03/17", cvv: "", type: .Amex)
-        XCTAssertFalse(isValidNextCreditCardDigit(card, characterCount: 1, string: "A"))
+        XCTAssertFalse(nextCreditCardDigitIsValid(card, characterCount: 1, string: "A"))
     }
     
-    func testIsValidNextCreditCardDigitTooLong() {
+    func testNextCreditCardDigitIsValidTooLong() {
         let card = CreditCard.init(cardNumber: "", expirationDate: "03/17", cvv: "", type: .Amex)
-        XCTAssertFalse(isValidNextCreditCardDigit(card, characterCount: 16, string: "3"))
+        XCTAssertFalse(nextCreditCardDigitIsValid(card, characterCount: 16, string: "3"))
     }
     
-    func testIsValidNextExpirationDateDigit() {
-        XCTAssertTrue(isValidNextExpirationDateDigit("", characterCount: 1, string: ""))
+    func testNextExpirationDateDigitIsValid() {
+        XCTAssertTrue(nextExpirationDateDigitIsValid("", characterCount: 1, string: ""))
     }
     
-    func testIsValidNextExpirationDateDigit3Digits() {
-        XCTAssertTrue(isValidNextExpirationDateDigit("01", characterCount: 3, string: "/"))
+    func testNextExpirationDateDigitIsValid3Digits() {
+        XCTAssertTrue(nextExpirationDateDigitIsValid("01", characterCount: 3, string: "/"))
     }
     
-    func testIsValidNextExpirationDateDigitTooManyDigits() {
-        XCTAssertFalse(isValidNextExpirationDateDigit("01/18", characterCount: 6, string: "9"))
+    func testNextExpirationDateDigitIsValidTooManyDigits() {
+        XCTAssertFalse(nextExpirationDateDigitIsValid("01/18", characterCount: 6, string: "9"))
     }
     
-    func testIsValidNextExpirationDateDigitBadFormat() {
-        XCTAssertFalse(isValidNextExpirationDateDigit("01", characterCount: 3, string: "?"))
+    func testNextExpirationDateDigitIsValidBadFormat() {
+        XCTAssertFalse(nextExpirationDateDigitIsValid("01", characterCount: 3, string: "?"))
     }
     
-    func testIsValidNextCVVDigit() {
+    func testNextCVVDigitIsValid() {
         let card = CreditCard.init(cardNumber: "", expirationDate: "03/17", cvv: "", type: .Amex)
-        XCTAssertTrue(isValidNextCVVDigit(card, characterCount: 1, string: "3"))
+        XCTAssertTrue(nextCVVDigitIsValid(card, characterCount: 1, string: "3"))
     }
     
-    func testIsValidNextCVVDigitEmptyString() {
+    func testNextCVVDigitIsValidEmptyString() {
         let card = CreditCard.init(cardNumber: "", expirationDate: "03/17", cvv: "", type: .Amex)
-        XCTAssertTrue(isValidNextCVVDigit(card, characterCount: 1, string: ""))
+        XCTAssertTrue(nextCVVDigitIsValid(card, characterCount: 1, string: ""))
     }
     
-    func testIsValidNextCVVDigitBadDigit() {
+    func testNextCVVDigitIsValidBadDigit() {
         let card = CreditCard.init(cardNumber: "", expirationDate: "03/17", cvv: "", type: .Amex)
-        XCTAssertFalse(isValidNextCVVDigit(card, characterCount: 1, string: "A"))
+        XCTAssertFalse(nextCVVDigitIsValid(card, characterCount: 1, string: "A"))
     }
     
-    func testIsValidNextCVVDigitTooLong() {
+    func testNextCVVDigitIsValidTooLong() {
         let card = CreditCard.init(cardNumber: "", expirationDate: "03/17", cvv: "", type: .Amex)
-        XCTAssertFalse(isValidNextCVVDigit(card, characterCount: 5, string: "3"))
+        XCTAssertFalse(nextCVVDigitIsValid(card, characterCount: 5, string: "3"))
     }
 }
