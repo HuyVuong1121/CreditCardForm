@@ -32,6 +32,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     let cornerRadius: CGFloat = 4.0
     let borderWidth: CGFloat = 1.0
     var creditCard: CreditCard = CreditCard.init(cardNumber: "", expirationDate: "", cvv: "", type: .Unknown)
+    var keyBoardIsOpen: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,9 +101,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if titleLabelTopConstraint.constant == 0 {
-            resignFirstResponders()
-        }
+        resignFirstResponders()
     }
     
     func resetFormPosition() {
@@ -117,6 +116,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func keyboardWillShow(notification: NSNotification) {
+        if keyBoardIsOpen {
+            return
+        }
+        keyBoardIsOpen = true
         if let userInfo = notification.userInfo {
             if let keyboardSize = (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
                 let keyBoardFrame = CGRect(origin: CGPoint(x: keyboardSize.origin.x,y: (keyboardSize.origin.y -  keyboardSize.size.height)), size: keyboardSize.size)
@@ -132,26 +135,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func keyboardWillHide(notification: NSNotification) {
+        keyBoardIsOpen = false
         titleLabelTopConstraint.constant = titleLabelDefault
         UIView.animateWithDuration(0.5, animations: { () -> Void in
             self.view.layoutIfNeeded()
         })
-    }
-    
-    func textDidChange(notification: NSNotification) {
-        let textField = notification.object as! UITextField
-        if let text = textField.text {
-            switch(textField.tag) {
-            case 0:
-                evaluateCardNumber(text)
-            case 1:
-                evaluateExpiredDate(text)
-            case 2:
-                evaluateCVV(text)
-            default:
-                break
-            }
-        }
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
@@ -185,6 +173,22 @@ class ViewController: UIViewController, UITextFieldDelegate {
             cardImageView.image = UIImage(named: creditCard.type.logo)
         }
         textField.layoutIfNeeded()
+    }
+    
+    func textDidChange(notification: NSNotification) {
+        let textField = notification.object as! UITextField
+        if let text = textField.text {
+            switch(textField.tag) {
+            case 0:
+                evaluateCardNumber(text)
+            case 1:
+                evaluateExpiredDate(text)
+            case 2:
+                evaluateCVV(text)
+            default:
+                break
+            }
+        }
     }
     
     func evaluateCardNumber(cardNumber: String) {
