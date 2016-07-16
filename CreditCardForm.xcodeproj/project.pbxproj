@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		959AF1392E29B960E956FBC9 /* Pods_CreditCardFormTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DD1593EAC83FB348E4087A9 /* Pods_CreditCardFormTests.framework */; };
+		A859897D1D39BA9800C4D751 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A859897C1D39BA9800C4D751 /* Images.xcassets */; };
 		A86770911D38794E00E1CC82 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = A86770901D38794E00E1CC82 /* Podfile */; };
 		A86771851D388EF300E1CC82 /* CreditCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86771841D388EF300E1CC82 /* CreditCardTests.swift */; };
 		A8C970261D382A1B00C1D3C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C970251D382A1B00C1D3C0 /* AppDelegate.swift */; };
@@ -43,6 +44,7 @@
 /* Begin PBXFileReference section */
 		0E5E6A00A0D900F206CA70EE /* Pods-CreditCardForm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CreditCardForm.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CreditCardForm/Pods-CreditCardForm.debug.xcconfig"; sourceTree = "<group>"; };
 		2DD1593EAC83FB348E4087A9 /* Pods_CreditCardFormTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CreditCardFormTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A859897C1D39BA9800C4D751 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A86770901D38794E00E1CC82 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A86771841D388EF300E1CC82 /* CreditCardTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardTests.swift; sourceTree = "<group>"; };
 		A8C970221D382A1B00C1D3C0 /* CreditCardForm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CreditCardForm.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,6 +164,7 @@
 				A8C970251D382A1B00C1D3C0 /* AppDelegate.swift */,
 				A8C970531D382A8400C1D3C0 /* CreditCardFormPlayground.playground */,
 				A8C9702C1D382A1B00C1D3C0 /* Assets.xcassets */,
+				A859897C1D39BA9800C4D751 /* Images.xcassets */,
 				A86771871D388F6A00E1CC82 /* Storyboards */,
 				A8C970541D382C3900C1D3C0 /* controllers */,
 				A8C970571D382C4700C1D3C0 /* lib */,
@@ -325,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8C970301D382A1B00C1D3C0 /* LaunchScreen.storyboard in Resources */,
+				A859897D1D39BA9800C4D751 /* Images.xcassets in Resources */,
 				A8C9702D1D382A1B00C1D3C0 /* Assets.xcassets in Resources */,
 				A86770911D38794E00E1CC82 /* Podfile in Resources */,
 				A8C9702B1D382A1B00C1D3C0 /* Main.storyboard in Resources */,
