@@ -216,6 +216,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
             cvvCheckMark.hidden = true
             creditCard.cvv = ""
         }
+        if creditCard.type.cvvLength == 3 {
+            cvvTextField.placeholder = "123"
+        } else {
+            cvvTextField.placeholder = "1234"
+        }
     }
 
     @IBAction func submitButtonPressed(sender: AnyObject) {
