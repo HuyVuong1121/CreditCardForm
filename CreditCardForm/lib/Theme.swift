@@ -11,6 +11,7 @@ import UIKit
 
 class Theme {
     static let sharedInstance = Theme()
+    private init() {}
     
     func darkThemeColor() -> UIColor {
         return UIColor.init(red: 49.0/255.0, green: 127.0/255.0, blue: 194.0/255.0, alpha: 1.0)

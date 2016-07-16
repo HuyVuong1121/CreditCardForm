@@ -9,7 +9,7 @@
 import XCTest
 @testable import CreditCardForm
 
-class CreditCardValidationTests: XCTestCase {
+class CreditCardValidationTests: XCTestCase, CreditCardValidator {
     
     let emptyNumber = ""
     let shortNumber = "3782"

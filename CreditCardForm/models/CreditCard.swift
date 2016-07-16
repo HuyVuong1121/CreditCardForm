@@ -82,7 +82,7 @@ protocol CreditCardProtocol {
     func creditCardCVVNumberLengthIsValid() -> Bool
 }
 
-struct CreditCard: CreditCardProtocol {
+struct CreditCard: CreditCardProtocol, CreditCardValidator {
     var cardNumber: String
     var expirationDate: String
     var cvv: String

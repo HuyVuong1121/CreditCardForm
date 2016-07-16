@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var cardNumberLabel: UILabel!
