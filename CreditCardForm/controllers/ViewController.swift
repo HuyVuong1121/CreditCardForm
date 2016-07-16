@@ -124,7 +124,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func keyboardWillHide(notification: NSNotification) {
-        titleLabelTopConstraint.constant = 59.0
+        titleLabelTopConstraint.constant = titleLabelDefault
         UIView.animateWithDuration(0.5, animations: { () -> Void in
             self.view.layoutIfNeeded()
         })
