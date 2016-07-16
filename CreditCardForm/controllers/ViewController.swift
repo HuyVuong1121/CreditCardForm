@@ -27,6 +27,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var cvvCheckMark: UIImageView!
     
     let titleLabelDefault: CGFloat = 59.0
+    let cornerRadius: CGFloat = 4.0
+    let borderWidth: CGFloat = 1.0
     var creditCard: CreditCard = CreditCard.init(cardNumber: "", expirationDate: "", cvv: "", type: .Unknown)
     
     override func viewDidLoad() {
@@ -73,17 +75,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func setupControlLayers() {
-        submitButton.layer.cornerRadius = 4.0
-        containerView.layer.cornerRadius = 4.0
-        containerView.layer.borderWidth = 1.0
+        submitButton.layer.cornerRadius = cornerRadius
+        containerView.layer.cornerRadius = cornerRadius
+        containerView.layer.borderWidth = borderWidth
         containerView.layer.borderColor = Theme.sharedInstance.darkThemeColor().CGColor
-        cardNumberTextField.layer.cornerRadius = 4.0
-        cardNumberTextField.layer.borderWidth = 1.0
+        cardNumberTextField.layer.cornerRadius = cornerRadius
+        cardNumberTextField.layer.borderWidth = borderWidth
         cardNumberTextField.layer.borderColor = UIColor.darkGrayColor().CGColor
-        expirationDateTextField.layer.cornerRadius = 4.0
-        expirationDateTextField.layer.borderWidth = 1.0
-        cvvTextField.layer.cornerRadius = 4.0
-        cvvTextField.layer.borderWidth = 1.0
+        expirationDateTextField.layer.cornerRadius = cornerRadius
+        expirationDateTextField.layer.borderWidth = borderWidth
+        cvvTextField.layer.cornerRadius = cornerRadius
+        cvvTextField.layer.borderWidth = borderWidth
         cvvTextField.layer.borderColor = UIColor.clearColor().CGColor
     }
     
@@ -175,7 +177,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func evaluateCardNumber(cardNumber: String) {
         creditCard.type = creditCardTypeFromString(cardNumber)
         cardImageView.image = UIImage(named: creditCard.type.logo)
-        if creditCard.type != .Unknown && isCorrectCreditCardNumberLength(cardNumber, creditCardType: creditCard.type) && passesLuhnAlgorithm(cardNumber) {
+        let cardNumberIsValid = creditCard.type != .Unknown && isCorrectCreditCardNumberLength(cardNumber, creditCardType: creditCard.type) && passesLuhnAlgorithm(cardNumber)
+        if cardNumberIsValid {
             cardNumberCheckMark.hidden = false
             creditCard.cardNumber = cardNumber
             expirationDateTextField.enabled = true
@@ -225,9 +228,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let cardNumberIsValid = creditCard.creditCardNumberIsValid()
         let cardExpirationIsValid = creditCard.expirationDateIsValid()
         let cardCVVIsValid = creditCard.cvvNumberLengthIsValid()
-        let everythingIsValid = cardTypeIsValid && cardNumberIsValid && cardExpirationIsValid && cardCVVIsValid
         
-        if everythingIsValid {
+        if creditCard.creditCardIsValid() {
             resignFirstResponders()
         } else {
             if !cardTypeIsValid || !cardNumberIsValid {
