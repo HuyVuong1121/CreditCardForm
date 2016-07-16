@@ -194,18 +194,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func evaluateCardNumber(cardNumber: String) {
         creditCard.type = creditCardTypeFromString(cardNumber)
         cardImageView.image = UIImage(named: creditCard.type.logo)
+        creditCard.cardNumber = cardNumber
         let cardNumberIsValid = creditCard.type != .Unknown && creditCardNumberLengthIsCorrect(cardNumber, creditCardType: creditCard.type) && passesLuhnAlgorithm(cardNumber)
         if cardNumberIsValid {
             cardNumberCheckMark.hidden = false
             cardNumberCheckMarkView.hidden = true
-            creditCard.cardNumber = cardNumber
             expirationDateTextField.enabled = true
             cvvTextField.enabled = true
             cvvTextField.layer.borderColor = UIColor.darkGrayColor().CGColor
         } else {
             cardNumberCheckMark.hidden = true
             cardNumberCheckMarkView.hidden = false
-            creditCard.cardNumber = ""
         }
         evaluateCVV(creditCard.cvv)
     }
@@ -214,26 +213,24 @@ class ViewController: UIViewController, UITextFieldDelegate {
         if date.characters.count <= 2 {
             expirationDateTextField.text = padExpirationDateMonth(date)
         }
+        creditCard.expirationDate = date
         if expirationDateIsValid(date) {
             expirationDateCheckMark.hidden = false
             expirationDateCheckMarkView.hidden = true
-            creditCard.expirationDate = date
         } else {
             expirationDateCheckMark.hidden = true
             expirationDateCheckMarkView.hidden = false
-            creditCard.expirationDate = ""
         }
     }
     
     func evaluateCVV(cvv: String) {
+        creditCard.cvv = cvv
         if cvv.characters.count == creditCard.type.cvvLength {
             cvvCheckMark.hidden = false
             cvvCheckMarkView.hidden = true
-            creditCard.cvv = cvv
         } else {
             cvvCheckMark.hidden = true
             cvvCheckMarkView.hidden = false
-            creditCard.cvv = ""
         }
         if creditCard.type.cvvLength == 3 {
             cvvTextField.placeholder = "123"
@@ -253,10 +250,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
         if creditCard.creditCardIsValid() {
             resignFirstResponders()
         } else {
-            if !cardTypeIsValid || !cardNumberIsValid {
+            if creditCard.cardNumber.isEmpty {
+                message = "Please enter a card number"
+            } else if !cardTypeIsValid || !cardNumberIsValid {
                 message = "Please correct the card number"
+            } else if creditCard.expirationDate.isEmpty {
+                message = "Please enter an expiration date"
             } else if !cardExpirationIsValid {
                 message = "Please correct the expiration date"
+            } else if creditCard.cvv.isEmpty {
+                message = "Please enter a CVV code"
             } else if !cardCVVIsValid {
                 message = "Please correct the CVV number"
             }

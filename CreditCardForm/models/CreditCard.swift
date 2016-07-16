@@ -70,9 +70,9 @@ enum CreditCardType {
 
 protocol CreditCardProtocol {
     var cardNumber: String { get set }
-    var type: CreditCardType { get set }
     var expirationDate: String { get set }
     var cvv: String  { get set }
+    var type: CreditCardType { get set }
     
     func creditCardIsValid() -> Bool
     func creditCardNumberIsValid() -> Bool
