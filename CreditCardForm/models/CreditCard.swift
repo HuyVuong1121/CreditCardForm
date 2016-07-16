@@ -27,7 +27,7 @@ enum CreditCardType {
             case .Visa:
                 return "Cards_Visa.png"
             case .Unknown:
-                return "Cards_Blank.png"
+                return "Cards_GenericCard.png"
         }
     }
     

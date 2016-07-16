@@ -18,7 +18,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var expirationDateTextField: UITextField!
     @IBOutlet weak var cvvLabel: UILabel!
     @IBOutlet weak var cvvTextField: UITextField!
-    @IBOutlet weak var cvvImageView: UIImageView!
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var titleLabelTopConstraint: NSLayoutConstraint!
@@ -165,12 +164,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(textField: UITextField) {
-        if textField.tag == 2 && cvvImageView.image == nil {
-            cvvImageView.image = UIImage(named: "Cards_CVV.png")
+        if textField.tag == 2 {
+            cardImageView.image = UIImage(named: "Cards_CVV.png")
         }
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
+        if textField.tag == 2 {
+            cardImageView.image = UIImage(named: creditCard.type.logo)
+        }
         textField.layoutIfNeeded()
     }
     
