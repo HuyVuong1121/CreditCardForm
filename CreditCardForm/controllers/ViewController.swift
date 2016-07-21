@@ -38,8 +38,6 @@ class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator
         super.viewDidLoad()
         Theme.sharedInstance.setNavigationBarAppearance(navigationController)
         self.view.backgroundColor = Theme.sharedInstance.lightThemeColor()
-        let image = UIImage(named: "Venmo_Logo.png")
-        self.navigationItem.titleView = UIImageView(image: image)
         setupDelegates()
         setupControls()
         setupControlLayers()
