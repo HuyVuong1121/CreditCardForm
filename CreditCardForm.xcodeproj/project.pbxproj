@@ -11,8 +11,8 @@
 		A859897D1D39BA9800C4D751 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A859897C1D39BA9800C4D751 /* Images.xcassets */; };
 		A86770911D38794E00E1CC82 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = A86770901D38794E00E1CC82 /* Podfile */; };
 		A86771851D388EF300E1CC82 /* CreditCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86771841D388EF300E1CC82 /* CreditCardTests.swift */; };
+		A87E56701D413227005ECD25 /* CreditCardEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87E566F1D413227005ECD25 /* CreditCardEvaluator.swift */; };
 		A8A73ACD1D3AFA4A000314D4 /* CreditCardValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A73ACC1D3AFA4A000314D4 /* CreditCardValidator.swift */; };
-		A8A73AD11D3AFDAE000314D4 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = A8A73AD01D3AFDAE000314D4 /* README.md */; };
 		A8C970261D382A1B00C1D3C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C970251D382A1B00C1D3C0 /* AppDelegate.swift */; };
 		A8C9702B1D382A1B00C1D3C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8C970291D382A1B00C1D3C0 /* Main.storyboard */; };
 		A8C9702D1D382A1B00C1D3C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8C9702C1D382A1B00C1D3C0 /* Assets.xcassets */; };
@@ -48,8 +48,8 @@
 		A859897C1D39BA9800C4D751 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A86770901D38794E00E1CC82 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A86771841D388EF300E1CC82 /* CreditCardTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardTests.swift; sourceTree = "<group>"; };
+		A87E566F1D413227005ECD25 /* CreditCardEvaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardEvaluator.swift; sourceTree = "<group>"; };
 		A8A73ACC1D3AFA4A000314D4 /* CreditCardValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardValidator.swift; sourceTree = "<group>"; };
-		A8A73AD01D3AFDAE000314D4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A8C970221D382A1B00C1D3C0 /* CreditCardForm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CreditCardForm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8C970251D382A1B00C1D3C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A8C9702A1D382A1B00C1D3C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -171,7 +171,6 @@
 		A8C970241D382A1B00C1D3C0 /* CreditCardForm */ = {
 			isa = PBXGroup;
 			children = (
-				A8A73AD01D3AFDAE000314D4 /* README.md */,
 				A8C970251D382A1B00C1D3C0 /* AppDelegate.swift */,
 				A8C970531D382A8400C1D3C0 /* CreditCardFormPlayground.playground */,
 				A8C9702C1D382A1B00C1D3C0 /* Assets.xcassets */,
@@ -208,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				A8C970551D382C3900C1D3C0 /* ViewController.swift */,
+				A87E566F1D413227005ECD25 /* CreditCardEvaluator.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -460,11 +460,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A8A73AD11D3AFDAE000314D4 /* README.md in Sources */,
 				A8C9705C1D38328B00C1D3C0 /* CreditCard.swift in Sources */,
 				A8C9705A1D382CCC00C1D3C0 /* Theme.swift in Sources */,
 				A8C970561D382C3900C1D3C0 /* ViewController.swift in Sources */,
 				A8A73ACD1D3AFA4A000314D4 /* CreditCardValidator.swift in Sources */,
+				A87E56701D413227005ECD25 /* CreditCardEvaluator.swift in Sources */,
 				A8C970261D382A1B00C1D3C0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

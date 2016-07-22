@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator {
+class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator, CreditCardEvaluator {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var cardNumberLabel: UILabel!
@@ -184,62 +184,15 @@ class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator
         if let text = textField.text {
             switch(textField.tag) {
             case 0:
-                evaluateCardNumber(text)
+                creditCard = evaluateCardNumber(text, creditCard: creditCard, cardImageView: cardImageView, cardNumberCheckMark: cardNumberCheckMark, cardNumberCheckMarkView: cardNumberCheckMarkView, expirationDateTextField: expirationDateTextField, cvvTextField: cvvTextField)
+                creditCard = evaluateCVV(creditCard.cvv, creditCard: creditCard, cvvTextField: cvvTextField, cvvCheckMark: cvvCheckMark, cvvCheckMarkView: cvvCheckMarkView)
             case 1:
-                evaluateExpiredDate(text)
+                creditCard = evaluateExpiredDate(text, creditCard: creditCard, expirationDateTextField: expirationDateTextField, expirationDateCheckMark: expirationDateCheckMark, expirationDateCheckMarkView: expirationDateCheckMarkView)
             case 2:
-                evaluateCVV(text)
+                creditCard = evaluateCVV(text, creditCard: creditCard, cvvTextField: cvvTextField, cvvCheckMark: cvvCheckMark, cvvCheckMarkView: cvvCheckMarkView)
             default:
                 break
             }
-        }
-    }
-    
-    func evaluateCardNumber(cardNumber: String) {
-        creditCard.type = creditCardTypeFromString(cardNumber)
-        cardImageView.image = UIImage(named: creditCard.type.logo)
-        creditCard.cardNumber = cardNumber
-        let cardNumberIsValid = creditCard.type != .Unknown && creditCardNumberLengthIsCorrect(cardNumber, creditCardType: creditCard.type) && passesLuhnAlgorithm(cardNumber)
-        if cardNumberIsValid {
-            cardNumberCheckMark.hidden = false
-            cardNumberCheckMarkView.hidden = true
-            expirationDateTextField.enabled = true
-            cvvTextField.enabled = true
-            cvvTextField.layer.borderColor = UIColor.darkGrayColor().CGColor
-        } else {
-            cardNumberCheckMark.hidden = true
-            cardNumberCheckMarkView.hidden = false
-        }
-        evaluateCVV(creditCard.cvv)
-    }
-    
-    func evaluateExpiredDate(date: String) {
-        if date.characters.count <= 2 {
-            expirationDateTextField.text = padExpirationDateMonth(date)
-        }
-        creditCard.expirationDate = date
-        if expirationDateIsValid(date) {
-            expirationDateCheckMark.hidden = false
-            expirationDateCheckMarkView.hidden = true
-        } else {
-            expirationDateCheckMark.hidden = true
-            expirationDateCheckMarkView.hidden = false
-        }
-    }
-    
-    func evaluateCVV(cvv: String) {
-        creditCard.cvv = cvv
-        if cvv.characters.count == creditCard.type.cvvLength {
-            cvvCheckMark.hidden = false
-            cvvCheckMarkView.hidden = true
-        } else {
-            cvvCheckMark.hidden = true
-            cvvCheckMarkView.hidden = false
-        }
-        if creditCard.type.cvvLength == 3 {
-            cvvTextField.placeholder = "123"
-        } else {
-            cvvTextField.placeholder = "1234"
         }
     }
 

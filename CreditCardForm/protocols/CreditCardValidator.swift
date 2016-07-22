@@ -9,17 +9,7 @@
 import Foundation
 
 protocol CreditCardValidator {
-    func creditCardTypeFromString(string: String) -> CreditCardType
-    func onlyNumbersFromString(string: String) -> String
-    func padExpirationDateMonth(string: String) -> String
-    func passesLuhnAlgorithm(cardNumber: String) -> Bool
-    func expirationDateFormatIsValid(expirationDateString: String) -> Bool
-    func expirationDateIsValid(expirationDateString: String) -> Bool
-    func nextCreditCardDigitIsValid(creditCard: CreditCard, characterCount: Int, string: String) -> Bool
-    func nextExpirationDateDigitIsValid(text: String, characterCount: Int, string: String) -> Bool
-    func nextCVVDigitIsValid(creditCard: CreditCard, characterCount: Int, string: String) -> Bool
-    func creditCardNumberLengthIsCorrect(cardNumber: String, creditCardType: CreditCardType) -> Bool
-    func cvvLengthIsCorrect(cvv: String, creditCardType: CreditCardType) -> Bool
+
 }
 
 extension CreditCardValidator {
