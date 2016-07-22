@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		959AF1392E29B960E956FBC9 /* Pods_CreditCardFormTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DD1593EAC83FB348E4087A9 /* Pods_CreditCardFormTests.framework */; };
 		A859897D1D39BA9800C4D751 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A859897C1D39BA9800C4D751 /* Images.xcassets */; };
+		A85E10991D4284B200AB84F3 /* CreditCardEvaluatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85E10981D4284B200AB84F3 /* CreditCardEvaluatorTests.swift */; };
 		A86770911D38794E00E1CC82 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = A86770901D38794E00E1CC82 /* Podfile */; };
 		A86771851D388EF300E1CC82 /* CreditCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86771841D388EF300E1CC82 /* CreditCardTests.swift */; };
 		A87E56701D413227005ECD25 /* CreditCardEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87E566F1D413227005ECD25 /* CreditCardEvaluator.swift */; };
@@ -46,6 +47,7 @@
 		0E5E6A00A0D900F206CA70EE /* Pods-CreditCardForm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CreditCardForm.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CreditCardForm/Pods-CreditCardForm.debug.xcconfig"; sourceTree = "<group>"; };
 		2DD1593EAC83FB348E4087A9 /* Pods_CreditCardFormTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CreditCardFormTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A859897C1D39BA9800C4D751 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A85E10981D4284B200AB84F3 /* CreditCardEvaluatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardEvaluatorTests.swift; sourceTree = "<group>"; };
 		A86770901D38794E00E1CC82 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A86771841D388EF300E1CC82 /* CreditCardTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardTests.swift; sourceTree = "<group>"; };
 		A87E566F1D413227005ECD25 /* CreditCardEvaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardEvaluator.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 			children = (
 				A86771841D388EF300E1CC82 /* CreditCardTests.swift */,
 				A8C9705F1D386F9600C1D3C0 /* CreditCardValidationTests.swift */,
+				A85E10981D4284B200AB84F3 /* CreditCardEvaluatorTests.swift */,
 			);
 			path = CreditCardFormTests;
 			sourceTree = "<group>";
@@ -474,6 +477,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A86771851D388EF300E1CC82 /* CreditCardTests.swift in Sources */,
+				A85E10991D4284B200AB84F3 /* CreditCardEvaluatorTests.swift in Sources */,
 				A8C970601D386F9600C1D3C0 /* CreditCardValidationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
