@@ -11,12 +11,11 @@ import UIKit
 
 protocol CreditCardEvaluator: CreditCardValidator {
     
-    
 }
 
 extension CreditCardEvaluator {
     
-    func evaluateCardNumber(cardNumber: String, creditCard: CreditCard, cardImageView: UIImageView, cardNumberCheckMark: UIImageView, cardNumberCheckMarkView:  UIView, expirationDateTextField: UITextField, cvvTextField: UITextField ) -> CreditCard {
+    func evaluateCardNumber(cardNumber: String, creditCard: CreditCard, cardImageView: UIImageView, cardNumberCheckMark: UIImageView, cardNumberCheckMarkView: UIView) -> CreditCard {
         var creditCard = creditCard
         creditCard.type = creditCardTypeFromString(cardNumber)
         cardImageView.image = UIImage(named: creditCard.type.logo)
@@ -33,10 +32,12 @@ extension CreditCardEvaluator {
     }
     
     func evaluateExpiredDate(date: String, creditCard:CreditCard, expirationDateTextField: UITextField, expirationDateCheckMark: UIImageView, expirationDateCheckMarkView:  UIView ) -> CreditCard {
+        var date = date
         var creditCard = creditCard
         if date.characters.count <= 2 {
-            expirationDateTextField.text = padExpirationDateMonth(date)
+            date = padExpirationDateMonth(date)
         }
+        expirationDateTextField.text = date
         creditCard.expirationDate = date
         if expirationDateIsValid(date) {
             expirationDateCheckMark.hidden = false

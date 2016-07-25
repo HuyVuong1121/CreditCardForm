@@ -184,7 +184,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator
         if let text = textField.text {
             switch(textField.tag) {
             case 0:
-                creditCard = evaluateCardNumber(text, creditCard: creditCard, cardImageView: cardImageView, cardNumberCheckMark: cardNumberCheckMark, cardNumberCheckMarkView: cardNumberCheckMarkView, expirationDateTextField: expirationDateTextField, cvvTextField: cvvTextField)
+                creditCard = evaluateCardNumber(text, creditCard: creditCard, cardImageView: cardImageView, cardNumberCheckMark: cardNumberCheckMark, cardNumberCheckMarkView: cardNumberCheckMarkView)
                 creditCard = evaluateCVV(creditCard.cvv, creditCard: creditCard, cvvTextField: cvvTextField, cvvCheckMark: cvvCheckMark, cvvCheckMarkView: cvvCheckMarkView)
             case 1:
                 creditCard = evaluateExpiredDate(text, creditCard: creditCard, expirationDateTextField: expirationDateTextField, expirationDateCheckMark: expirationDateCheckMark, expirationDateCheckMarkView: expirationDateCheckMarkView)
