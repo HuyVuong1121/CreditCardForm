@@ -36,8 +36,8 @@ class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        Theme.sharedInstance.setNavigationBarAppearance(navigationController)
-        self.view.backgroundColor = Theme.sharedInstance.lightThemeColor()
+        ThemeAppearance().setNavigationBarAppearance(navigationController)
+        self.view.backgroundColor = Theme.Light.color
         setupDelegates()
         setupControls()
         setupControlLayers()
@@ -63,12 +63,12 @@ class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator
     }
     
     func setupControls() {
-        titleLabel.textColor = Theme.sharedInstance.textThemeColor()
-        cardNumberLabel.textColor = Theme.sharedInstance.textThemeColor()
-        expirationDateLabel.textColor = Theme.sharedInstance.textThemeColor()
-        cvvLabel.textColor = Theme.sharedInstance.textThemeColor()
-        submitButton.backgroundColor = Theme.sharedInstance.darkThemeColor()
-        submitButton.setTitleColor(Theme.sharedInstance.contrastThemeColor(), forState: UIControlState.Normal)
+        titleLabel.textColor = Theme.Text.color
+        cardNumberLabel.textColor = Theme.Text.color
+        expirationDateLabel.textColor = Theme.Text.color
+        cvvLabel.textColor = Theme.Text.color
+        submitButton.backgroundColor = Theme.Dark.color
+        submitButton.setTitleColor(Theme.Contrast.color, forState: UIControlState.Normal)
         cardNumberCheckMark.hidden = true
         expirationDateCheckMark.hidden = true
         cvvCheckMark.hidden = true
@@ -78,7 +78,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator
         submitButton.layer.cornerRadius = cornerRadius
         containerView.layer.cornerRadius = cornerRadius
         containerView.layer.borderWidth = borderWidth
-        containerView.layer.borderColor = Theme.sharedInstance.darkThemeColor().CGColor
+        containerView.layer.borderColor = Theme.Dark.color.CGColor
         cardNumberTextField.layer.cornerRadius = cornerRadius
         cardNumberTextField.layer.borderWidth = borderWidth
         cardNumberTextField.layer.borderColor = UIColor.darkGrayColor().CGColor
@@ -89,13 +89,13 @@ class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator
         cvvTextField.layer.borderColor = UIColor.darkGrayColor().CGColor
         cardNumberCheckMarkView.layer.cornerRadius = cardNumberCheckMarkView.frame.width/2.0
         cardNumberCheckMarkView.layer.borderWidth = borderWidth
-        cardNumberCheckMarkView.layer.borderColor = Theme.sharedInstance.darkThemeColor().CGColor
+        cardNumberCheckMarkView.layer.borderColor = Theme.Dark.color.CGColor
         expirationDateCheckMarkView.layer.cornerRadius = expirationDateCheckMarkView.frame.width/2.0
         expirationDateCheckMarkView.layer.borderWidth = borderWidth
-        expirationDateCheckMarkView.layer.borderColor = Theme.sharedInstance.darkThemeColor().CGColor
+        expirationDateCheckMarkView.layer.borderColor = Theme.Dark.color.CGColor
         cvvCheckMarkView.layer.cornerRadius = cvvCheckMarkView.frame.width/2.0
         cvvCheckMarkView.layer.borderWidth = borderWidth
-        cvvCheckMarkView.layer.borderColor = Theme.sharedInstance.darkThemeColor().CGColor
+        cvvCheckMarkView.layer.borderColor = Theme.Dark.color.CGColor
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {

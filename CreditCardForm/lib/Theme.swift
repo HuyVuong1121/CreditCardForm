@@ -9,31 +9,29 @@
 import Foundation
 import UIKit
 
-class Theme {
-    static let sharedInstance = Theme()
-    private init() {}
-    
-    func darkThemeColor() -> UIColor {
-        return UIColor.init(red: 49.0/255.0, green: 127.0/255.0, blue: 194.0/255.0, alpha: 1.0)
-    }
-    
-    func lightThemeColor() -> UIColor {
-        return UIColor.init(red: 226.0/255.0, green: 230.0/255.0, blue: 234.0/255.0, alpha: 1.0)
-    }
-    
-    func textThemeColor() -> UIColor {
-        return UIColor.init(red: 84.0/255.0, green: 95.0/255.0, blue: 102.0/255.0, alpha: 1.0)
-    }
-    
-    func contrastThemeColor() -> UIColor {
-        return UIColor.whiteColor()
-    }
-    
-    func setNavigationBarAppearance(navigationController: UINavigationController?) {
-        if let controller = navigationController {
-            controller.navigationBar.barTintColor = darkThemeColor()
-            controller.navigationBar.tintColor = UIColor.whiteColor()
+enum Theme {
+    case Dark, Light, Text, Contrast
+}
+
+extension Theme {
+    var color: UIColor {
+        switch self {
+        case .Dark:
+            return UIColor.init(red: 49.0/255.0, green: 127.0/255.0, blue: 194.0/255.0, alpha: 1.0)
+        case .Light:
+            return UIColor.init(red: 226.0/255.0, green: 230.0/255.0, blue: 234.0/255.0, alpha: 1.0)
+        case .Text:
+            return UIColor.init(red: 84.0/255.0, green: 95.0/255.0, blue: 102.0/255.0, alpha: 1.0)
+        case .Contrast:
+            return UIColor.whiteColor()
         }
     }
 }
 
+struct ThemeAppearance {
+    func setNavigationBarAppearance(navigationController: UINavigationController?) {
+        let navigationController = navigationController!
+        navigationController.navigationBar.barTintColor = Theme.Dark.color
+        navigationController.navigationBar.tintColor = Theme.Contrast.color
+    }
+}
