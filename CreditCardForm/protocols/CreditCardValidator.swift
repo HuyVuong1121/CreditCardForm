@@ -8,9 +8,7 @@
 
 import Foundation
 
-protocol CreditCardValidator {
-
-}
+protocol CreditCardValidator {}
 
 extension CreditCardValidator {
 

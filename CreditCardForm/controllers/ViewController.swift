@@ -198,6 +198,11 @@ class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator
 
     @IBAction func submitButtonPressed(sender: AnyObject) {
         let title = "New Credit Card"
+        let message = alertMessageForCreditCard(creditCard)
+        showAlertWithMessage(title, message: message)
+    }
+
+    func alertMessageForCreditCard(creditCard: CreditCardProtocol) -> String {
         var message = "Your credit card is valid!"
         let cardTypeIsValid = creditCard.type != .Unknown
         let cardNumberIsValid = creditCardNumberIsValid(creditCard)
@@ -221,7 +226,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator
                 message = "Please correct the CVV number"
             }
         }
-        showAlertWithMessage(title, message: message)
+        return message
     }
 
     func showAlertWithMessage(title: String, message: String) {
