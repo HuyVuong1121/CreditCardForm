@@ -46,7 +46,7 @@ extension CreditCardProtocol {
     }
 }
 
-struct AmexCreditCard: CreditCardProtocol, CreditCardValidator {
+struct AmexCreditCard: CreditCardProtocol {
     var cardNumber: String
     var expirationDate: String
     var cvv: String
@@ -57,7 +57,7 @@ struct AmexCreditCard: CreditCardProtocol, CreditCardValidator {
     var cvvLength: Int { return 4 }
 }
 
-struct DinersClubCreditCard: CreditCardProtocol, CreditCardValidator {
+struct DinersClubCreditCard: CreditCardProtocol {
     var cardNumber: String
     var expirationDate: String
     var cvv: String
@@ -68,7 +68,7 @@ struct DinersClubCreditCard: CreditCardProtocol, CreditCardValidator {
     var cvvLength: Int { return 3 }
 }
 
-struct DiscoverCreditCard: CreditCardProtocol, CreditCardValidator {
+struct DiscoverCreditCard: CreditCardProtocol {
     var cardNumber: String
     var expirationDate: String
     var cvv: String
@@ -79,7 +79,7 @@ struct DiscoverCreditCard: CreditCardProtocol, CreditCardValidator {
     var cvvLength: Int { return 3 }
 }
 
-struct JCBCreditCard: CreditCardProtocol, CreditCardValidator {
+struct JCBCreditCard: CreditCardProtocol {
     var cardNumber: String
     var expirationDate: String
     var cvv: String
@@ -90,7 +90,7 @@ struct JCBCreditCard: CreditCardProtocol, CreditCardValidator {
     var cvvLength: Int { return 3 }
 }
 
-struct MasterCardCreditCard: CreditCardProtocol, CreditCardValidator {
+struct MasterCardCreditCard: CreditCardProtocol {
     var cardNumber: String
     var expirationDate: String
     var cvv: String
@@ -101,7 +101,7 @@ struct MasterCardCreditCard: CreditCardProtocol, CreditCardValidator {
     var cvvLength: Int { return 3 }
 }
 
-struct VisaCreditCard: CreditCardProtocol, CreditCardValidator {
+struct VisaCreditCard: CreditCardProtocol {
     var cardNumber: String
     var expirationDate: String
     var cvv: String
@@ -112,7 +112,7 @@ struct VisaCreditCard: CreditCardProtocol, CreditCardValidator {
     var cvvLength: Int { return 3 }
 }
 
-struct UnknownCreditCard: CreditCardProtocol, CreditCardValidator {
+struct UnknownCreditCard: CreditCardProtocol {
     var cardNumber: String
     var expirationDate: String
     var cvv: String
