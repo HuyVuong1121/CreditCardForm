@@ -14,18 +14,18 @@ protocol CreditCardValidator {
 
 extension CreditCardValidator {
 
-    func creditCardTypeFromString(string: String) -> CreditCardType {
-        if string.characters.count < 6 {
-            return CreditCardType.Unknown
-        }
+    func creditCardFromString(string: String) -> CreditCardProtocol {
+        let creditCard = UnknownCreditCard(cardNumber: "", expirationDate: "", cvv: "")
+        var validCard: CreditCardProtocol
         for type in CreditCardType.validValues {
-            let predicate = NSPredicate(format: "SELF MATCHES %@", type.regex)
+            validCard = creditCard.cardFromType(type, cardNumber: "", expirationDate: "", cvv: "")
+            let predicate = NSPredicate(format: "SELF MATCHES %@", validCard.regex)
             let numbersString = onlyNumbersFromString(string)
             if predicate.evaluateWithObject(numbersString) {
-                return type
+                return validCard
             }
         }
-        return CreditCardType.Unknown
+        return creditCard
     }
 
     func onlyNumbersFromString(string: String) -> String {
@@ -54,7 +54,7 @@ extension CreditCardValidator {
         let formattedCardNumber = onlyNumbersFromString(cardNumber)
         let originalCheckDigit = formattedCardNumber.characters.last!
         let characters = formattedCardNumber.characters.dropLast().reverse()
-        
+
         var digitSum = 0
         for (idx, character) in characters.enumerate() {
             let value = Int(String(character)) ?? 0
@@ -68,11 +68,11 @@ extension CreditCardValidator {
                 digitSum = digitSum + value
             }
         }
-        
+
         digitSum = digitSum * 9
         let computedCheckDigit = digitSum % 10
         let originalCheckDigitInt = Int(String(originalCheckDigit))
-        
+
         return originalCheckDigitInt == computedCheckDigit
     }
 
@@ -118,11 +118,11 @@ extension CreditCardValidator {
         return false
     }
 
-    func nextCreditCardDigitIsValid(creditCard: CreditCard, characterCount: Int, string: String) -> Bool {
+    func nextCreditCardDigitIsValid(creditCard: CreditCardProtocol, characterCount: Int, string: String) -> Bool {
         if characterCount > 6 && creditCard.type == CreditCardType.Unknown {
             return false
         }
-        if characterCount <= creditCard.type.cardNumberLength &&  (string == "" || Double(string) != nil) {
+        if characterCount <= creditCard.cardNumberLength &&  (string == "" || Double(string) != nil) {
             return true
         }
         return false
@@ -138,21 +138,43 @@ extension CreditCardValidator {
         return false
     }
 
-    func nextCVVDigitIsValid(creditCard: CreditCard, characterCount: Int, string: String) -> Bool {
-        if characterCount <= creditCard.type.cvvLength &&  (string == "" || Int(string) != nil) {
+    func nextCVVDigitIsValid(creditCard: CreditCardProtocol, characterCount: Int, string: String) -> Bool {
+        if characterCount <= creditCard.cvvLength &&  (string == "" || Int(string) != nil) {
             return true
         }
         return false
     }
 
-    func creditCardNumberLengthIsCorrect(cardNumber: String, creditCardType: CreditCardType) -> Bool {
-        return cardNumber.characters.count == creditCardType.cardNumberLength
+    func creditCardNumberLengthIsCorrect(cardNumber: String, creditCard: CreditCardProtocol) -> Bool {
+        return cardNumber.characters.count == creditCard.cardNumberLength
     }
 
-    func cvvLengthIsCorrect(cvv: String, creditCardType: CreditCardType) -> Bool {
-        return cvv.characters.count == creditCardType.cvvLength
+    func cvvLengthIsCorrect(cvv: String, creditCard: CreditCardProtocol) -> Bool {
+        return cvv.characters.count == creditCard.cvvLength
     }
-    
+
+    func creditCardIsValid(creditCard: CreditCardProtocol) -> Bool {
+        return creditCard.type != .Unknown && creditCardNumberIsValid(creditCard) && creditCardExpirationDateIsValid(creditCard) && creditCardCVVNumberLengthIsValid(creditCard)
+    }
+
+    func creditCardNumberIsValid(creditCard: CreditCardProtocol) -> Bool {
+        return creditCardNumberLengthIsValid(creditCard) && creditCardLastDigitIsValid(creditCard)
+    }
+
+    func creditCardNumberLengthIsValid(creditCard: CreditCardProtocol) -> Bool {
+        return creditCardNumberLengthIsCorrect(creditCard.cardNumber, creditCard: creditCard)
+    }
+
+    func creditCardLastDigitIsValid(creditCard: CreditCardProtocol) -> Bool {
+        return passesLuhnAlgorithm(creditCard.cardNumber)
+    }
+
+    func creditCardExpirationDateIsValid(creditCard: CreditCardProtocol) -> Bool {
+        return expirationDateIsValid(creditCard.expirationDate)
+    }
+
+    func creditCardCVVNumberLengthIsValid(creditCard: CreditCardProtocol) -> Bool {
+        return cvvLengthIsCorrect(creditCard.cvv, creditCard: creditCard)
+    }
+
 }
-
-

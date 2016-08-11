@@ -27,13 +27,13 @@ class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator
     @IBOutlet weak var cardNumberCheckMarkView: UIView!
     @IBOutlet weak var expirationDateCheckMarkView: UIView!
     @IBOutlet weak var cvvCheckMarkView: UIView!
-    
+
     let titleLabelDefault: CGFloat = 59.0
     let cornerRadius: CGFloat = 4.0
     let borderWidth: CGFloat = 1.0
-    var creditCard: CreditCard = CreditCard.init(cardNumber: "", expirationDate: "", cvv: "", type: .Unknown)
+    var creditCard: CreditCardProtocol = UnknownCreditCard(cardNumber: "", expirationDate: "", cvv: "")
     var keyBoardIsOpen: Bool = false
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         ThemeAppearance().setNavigationBarAppearance(navigationController)
@@ -42,26 +42,26 @@ class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator
         setupControls()
         setupControlLayers()
     }
-    
+
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.textDidChange(_:)),    name: UITextFieldTextDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.textDidChange(_:)), name: UITextFieldTextDidChangeNotification, object: nil)
         resetFormPosition()
     }
-    
+
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
-    
+
     func setupDelegates() {
         cardNumberTextField.delegate = self
         expirationDateTextField.delegate = self
         cvvTextField.delegate = self
     }
-    
+
     func setupControls() {
         titleLabel.textColor = Theme.Text.color
         cardNumberLabel.textColor = Theme.Text.color
@@ -73,7 +73,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator
         expirationDateCheckMark.hidden = true
         cvvCheckMark.hidden = true
     }
-    
+
     func setupControlLayers() {
         submitButton.layer.cornerRadius = cornerRadius
         containerView.layer.cornerRadius = cornerRadius
@@ -97,16 +97,16 @@ class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator
         cvvCheckMarkView.layer.borderWidth = borderWidth
         cvvCheckMarkView.layer.borderColor = Theme.Dark.color.CGColor
     }
-    
+
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         resignFirstResponders()
     }
-    
+
     func resetFormPosition() {
         resignFirstResponders()
         titleLabelTopConstraint.constant = titleLabelDefault
     }
-    
+
     func resignFirstResponders() {
         if cardNumberTextField.isFirstResponder() {
             cardNumberTextField.resignFirstResponder()
@@ -118,7 +118,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator
             cvvTextField.resignFirstResponder()
         }
     }
-    
+
     func keyboardWillShow(notification: NSNotification) {
         if keyBoardIsOpen {
             return
@@ -126,7 +126,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator
         keyBoardIsOpen = true
         if let userInfo = notification.userInfo {
             if let keyboardSize = (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
-                let keyBoardFrame = CGRect(origin: CGPoint(x: keyboardSize.origin.x,y: (keyboardSize.origin.y -  keyboardSize.size.height)), size: keyboardSize.size)
+                let keyBoardFrame = CGRect(origin: CGPoint(x: keyboardSize.origin.x, y: (keyboardSize.origin.y -  keyboardSize.size.height)), size: keyboardSize.size)
                 let containerViewFrame = containerView.frame
                 if keyBoardFrame.intersects(containerViewFrame) {
                     titleLabelTopConstraint.constant = 0
@@ -137,7 +137,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator
             }
         }
     }
-    
+
     func keyboardWillHide(notification: NSNotification) {
         keyBoardIsOpen = false
         titleLabelTopConstraint.constant = titleLabelDefault
@@ -145,7 +145,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator
             self.view.layoutIfNeeded()
         })
     }
-    
+
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         if let text = textField.text {
             let characterCount = text.characters.count + string.characters.count
@@ -165,20 +165,20 @@ class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator
         }
         return true
     }
-    
+
     func textFieldDidBeginEditing(textField: UITextField) {
         if textField.tag == 2 {
             cardImageView.image = UIImage(named: "Cards_CVV.png")
         }
     }
-    
+
     func textFieldDidEndEditing(textField: UITextField) {
         if textField.tag == 2 {
-            cardImageView.image = UIImage(named: creditCard.type.logo)
+            cardImageView.image = UIImage(named: creditCard.logo)
         }
         textField.layoutIfNeeded()
     }
-    
+
     func textDidChange(notification: NSNotification) {
         let textField = notification.object as! UITextField
         if let text = textField.text {
@@ -200,11 +200,11 @@ class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator
         let title = "New Credit Card"
         var message = "Your credit card is valid!"
         let cardTypeIsValid = creditCard.type != .Unknown
-        let cardNumberIsValid = creditCard.creditCardNumberIsValid()
-        let cardExpirationIsValid = creditCard.creditCardExpirationDateIsValid()
-        let cardCVVIsValid = creditCard.creditCardCVVNumberLengthIsValid()
-        
-        if creditCard.creditCardIsValid() {
+        let cardNumberIsValid = creditCardNumberIsValid(creditCard)
+        let cardExpirationIsValid = creditCardExpirationDateIsValid(creditCard)
+        let cardCVVIsValid = creditCardCVVNumberLengthIsValid(creditCard)
+
+        if creditCardIsValid(creditCard) {
             resignFirstResponders()
         } else {
             if creditCard.cardNumber.isEmpty {
@@ -223,7 +223,7 @@ class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator
         }
         showAlertWithMessage(title, message: message)
     }
-    
+
     func showAlertWithMessage(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         let cancelAction = UIAlertAction(title: "Ok", style: .Cancel) { (action) in}
@@ -231,4 +231,3 @@ class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator
         self.presentViewController(alertController, animated: true) {}
     }
 }
-
