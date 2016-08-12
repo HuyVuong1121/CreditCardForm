@@ -9,16 +9,14 @@
 import Foundation
 import UIKit
 
-protocol CreditCardEvaluator: CreditCardValidator {}
+extension String {
 
-extension CreditCardEvaluator {
-
-    func evaluateCardNumber(cardNumber: String, creditCard: CreditCardProtocol, cardImageView: UIImageView, cardNumberCheckMark: UIImageView, cardNumberCheckMarkView: UIView) -> CreditCardProtocol {
-        var creditCard = creditCardFromString(cardNumber)
+    func evaluateCardNumber(creditCard: CreditCardProtocol, cardImageView: UIImageView, cardNumberCheckMark: UIImageView, cardNumberCheckMarkView: UIView) -> CreditCardProtocol {
+        var creditCard = self.creditCardFromString()
         cardImageView.image = UIImage(named: creditCard.logo)
-        let cardNumberIsValid = creditCard.type != .Unknown && creditCardNumberLengthIsCorrect(cardNumber, creditCard: creditCard) && passesLuhnAlgorithm(cardNumber)
+        let cardNumberIsValid = creditCard.type != .Unknown && self.creditCardNumberLengthIsCorrect(creditCard.cardNumberLength) && self.passesLuhnAlgorithm()
         if cardNumberIsValid {
-            creditCard.cardNumber = cardNumber
+            creditCard.cardNumber = self
             cardNumberCheckMark.hidden = false
             cardNumberCheckMarkView.hidden = true
         } else {
@@ -29,15 +27,15 @@ extension CreditCardEvaluator {
         return creditCard
     }
 
-    func evaluateExpiredDate(date: String, creditCard: CreditCardProtocol, expirationDateTextField: UITextField, expirationDateCheckMark: UIImageView, expirationDateCheckMarkView: UIView ) -> CreditCardProtocol {
-        var date = date
+    func evaluateExpiredDate(creditCard: CreditCardProtocol, expirationDateTextField: UITextField, expirationDateCheckMark: UIImageView, expirationDateCheckMarkView: UIView ) -> CreditCardProtocol {
+        var date = self
         var creditCard = creditCard
         if date.characters.count <= 2 {
-            date = padExpirationDateMonth(date)
+            date = date.padExpirationDateMonth()
         }
         expirationDateTextField.text = date
         creditCard.expirationDate = date
-        if expirationDateIsValid(date) {
+        if date.expirationDateIsValid() {
             expirationDateCheckMark.hidden = false
             expirationDateCheckMarkView.hidden = true
         } else {
@@ -47,10 +45,10 @@ extension CreditCardEvaluator {
         return creditCard
     }
 
-    func evaluateCVV(cvv: String, creditCard: CreditCardProtocol, cvvTextField: UITextField, cvvCheckMark: UIImageView, cvvCheckMarkView: UIView ) -> CreditCardProtocol {
+    func evaluateCVV(creditCard: CreditCardProtocol, cvvTextField: UITextField, cvvCheckMark: UIImageView, cvvCheckMarkView: UIView ) -> CreditCardProtocol {
         var creditCard = creditCard
-        if cvv.characters.count == creditCard.cvvLength {
-            creditCard.cvv = cvv
+        if self.characters.count == creditCard.cvvLength {
+            creditCard.cvv = self
             cvvCheckMark.hidden = false
             cvvCheckMarkView.hidden = true
         } else {

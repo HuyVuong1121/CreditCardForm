@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator, CreditCardEvaluator {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var cardNumberLabel: UILabel!
@@ -151,14 +151,14 @@ class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator
             let characterCount = text.characters.count + string.characters.count
             switch(textField.tag) {
             case 0:
-                return nextCreditCardDigitIsValid(creditCard, characterCount: characterCount, string: string)
+                return string.nextCreditCardDigitIsValid(creditCard.type, cardNumberLength:creditCard.cardNumberLength, characterCount: characterCount)
             case 1:
                 if text.characters.count <= 2 {
-                    expirationDateTextField.text = padExpirationDateMonth(text)
+                    expirationDateTextField.text = text.padExpirationDateMonth()
                 }
-                return nextExpirationDateDigitIsValid(text, characterCount: characterCount, string: string)
+                return string.nextExpirationDateDigitIsValid(text, characterCount: characterCount)
             case 2:
-                return nextCVVDigitIsValid(creditCard, characterCount: characterCount, string: string)
+                return string.nextCVVDigitIsValid(creditCard.cvvLength, characterCount: characterCount)
             default:
                 return true
             }
@@ -184,12 +184,12 @@ class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator
         if let text = textField.text {
             switch(textField.tag) {
             case 0:
-                creditCard = evaluateCardNumber(text, creditCard: creditCard, cardImageView: cardImageView, cardNumberCheckMark: cardNumberCheckMark, cardNumberCheckMarkView: cardNumberCheckMarkView)
-                creditCard = evaluateCVV(creditCard.cvv, creditCard: creditCard, cvvTextField: cvvTextField, cvvCheckMark: cvvCheckMark, cvvCheckMarkView: cvvCheckMarkView)
+                creditCard = text.evaluateCardNumber(creditCard, cardImageView: cardImageView, cardNumberCheckMark: cardNumberCheckMark, cardNumberCheckMarkView: cardNumberCheckMarkView)
+                creditCard = creditCard.cvv.evaluateCVV(creditCard, cvvTextField: cvvTextField, cvvCheckMark: cvvCheckMark, cvvCheckMarkView: cvvCheckMarkView)
             case 1:
-                creditCard = evaluateExpiredDate(text, creditCard: creditCard, expirationDateTextField: expirationDateTextField, expirationDateCheckMark: expirationDateCheckMark, expirationDateCheckMarkView: expirationDateCheckMarkView)
+                creditCard = text.evaluateExpiredDate(creditCard, expirationDateTextField: expirationDateTextField, expirationDateCheckMark: expirationDateCheckMark, expirationDateCheckMarkView: expirationDateCheckMarkView)
             case 2:
-                creditCard = evaluateCVV(text, creditCard: creditCard, cvvTextField: cvvTextField, cvvCheckMark: cvvCheckMark, cvvCheckMarkView: cvvCheckMarkView)
+                creditCard = text.evaluateCVV(creditCard, cvvTextField: cvvTextField, cvvCheckMark: cvvCheckMark, cvvCheckMarkView: cvvCheckMarkView)
             default:
                 break
             }
@@ -205,11 +205,11 @@ class ViewController: UIViewController, UITextFieldDelegate, CreditCardValidator
     func alertMessageForCreditCard(creditCard: CreditCardProtocol) -> String {
         var message = "Your credit card is valid!"
         let cardTypeIsValid = creditCard.type != .Unknown
-        let cardNumberIsValid = creditCardNumberIsValid(creditCard)
-        let cardExpirationIsValid = creditCardExpirationDateIsValid(creditCard)
-        let cardCVVIsValid = creditCardCVVNumberLengthIsValid(creditCard)
+        let cardNumberIsValid = creditCard.creditCardNumberIsValid()
+        let cardExpirationIsValid = creditCard.expirationDate.expirationDateIsValid()
+        let cardCVVIsValid = creditCard.cvv.cvvLengthIsCorrect(creditCard.cvvLength)
 
-        if creditCardIsValid(creditCard) {
+        if creditCard.creditCardIsValid() {
             resignFirstResponders()
         } else {
             if creditCard.cardNumber.isEmpty {

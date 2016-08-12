@@ -14,38 +14,6 @@ enum CreditCardType {
     static let validValues = [Amex, DinersClub, Discover, JCB, MasterCard, Visa]
 }
 
-protocol CreditCardProtocol {
-    var cardNumber: String { get set }
-    var expirationDate: String { get set }
-    var cvv: String { get set }
-    var type: CreditCardType { get }
-    var logo: String { get }
-    var regex: String { get }
-    var cardNumberLength: Int { get }
-    var cvvLength: Int { get }
-}
-
-extension CreditCardProtocol {
-    func cardFromType(type: CreditCardType, cardNumber: String, expirationDate: String, cvv: String) -> CreditCardProtocol {
-        switch type {
-        case .Amex:
-            return AmexCreditCard(cardNumber: cardNumber, expirationDate: expirationDate, cvv: cvv)
-        case .DinersClub:
-            return DinersClubCreditCard(cardNumber: cardNumber, expirationDate: expirationDate, cvv: cvv)
-        case .Discover:
-            return DiscoverCreditCard(cardNumber: cardNumber, expirationDate: expirationDate, cvv: cvv)
-        case .JCB:
-            return JCBCreditCard(cardNumber: cardNumber, expirationDate: expirationDate, cvv: cvv)
-        case .MasterCard:
-            return MasterCardCreditCard(cardNumber: cardNumber, expirationDate: expirationDate, cvv: cvv)
-        case .Visa:
-            return VisaCreditCard(cardNumber: cardNumber, expirationDate: expirationDate, cvv: cvv)
-        case .Unknown:
-            return UnknownCreditCard(cardNumber: cardNumber, expirationDate: expirationDate, cvv: cvv)
-        }
-    }
-}
-
 struct AmexCreditCard: CreditCardProtocol {
     var cardNumber: String
     var expirationDate: String
