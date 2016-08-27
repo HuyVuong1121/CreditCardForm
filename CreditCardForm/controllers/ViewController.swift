@@ -79,23 +79,24 @@ class ViewController: UIViewController, UITextFieldDelegate {
         containerView.layer.cornerRadius = cornerRadius
         containerView.layer.borderWidth = borderWidth
         containerView.layer.borderColor = Theme.Dark.color.CGColor
-        cardNumberTextField.layer.cornerRadius = cornerRadius
-        cardNumberTextField.layer.borderWidth = borderWidth
-        cardNumberTextField.layer.borderColor = UIColor.darkGrayColor().CGColor
-        expirationDateTextField.layer.cornerRadius = cornerRadius
-        expirationDateTextField.layer.borderWidth = borderWidth
-        cvvTextField.layer.cornerRadius = cornerRadius
-        cvvTextField.layer.borderWidth = borderWidth
-        cvvTextField.layer.borderColor = UIColor.darkGrayColor().CGColor
-        cardNumberCheckMarkView.layer.cornerRadius = cardNumberCheckMarkView.frame.width/2.0
-        cardNumberCheckMarkView.layer.borderWidth = borderWidth
-        cardNumberCheckMarkView.layer.borderColor = Theme.Dark.color.CGColor
-        expirationDateCheckMarkView.layer.cornerRadius = expirationDateCheckMarkView.frame.width/2.0
-        expirationDateCheckMarkView.layer.borderWidth = borderWidth
-        expirationDateCheckMarkView.layer.borderColor = Theme.Dark.color.CGColor
-        cvvCheckMarkView.layer.cornerRadius = cvvCheckMarkView.frame.width/2.0
-        cvvCheckMarkView.layer.borderWidth = borderWidth
-        cvvCheckMarkView.layer.borderColor = Theme.Dark.color.CGColor
+        updateLayer(cardNumberTextField)
+        updateLayer(expirationDateTextField)
+        updateLayer(cvvTextField)
+        updateLayerForCircle(cardNumberCheckMarkView)
+        updateLayerForCircle(expirationDateCheckMarkView)
+        updateLayerForCircle(cvvCheckMarkView)
+    }
+
+    func updateLayer(view: UIView) {
+        view.layer.cornerRadius = cornerRadius
+        view.layer.borderWidth = borderWidth
+        view.layer.borderColor = Theme.Dark.color.CGColor
+    }
+    
+    func updateLayerForCircle(view: UIView) {
+        view.layer.cornerRadius = view.frame.width/2.0
+        view.layer.borderWidth = borderWidth
+        view.layer.borderColor = Theme.Dark.color.CGColor
     }
 
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -108,14 +109,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
 
     func resignFirstResponders() {
-        if cardNumberTextField.isFirstResponder() {
-            cardNumberTextField.resignFirstResponder()
-        }
-        if expirationDateTextField.isFirstResponder() {
-            expirationDateTextField.resignFirstResponder()
-        }
-        if cvvTextField.isFirstResponder() {
-            cvvTextField.resignFirstResponder()
+        resignFirstResponder(cardNumberTextField)
+        resignFirstResponder(expirationDateTextField)
+        resignFirstResponder(cvvTextField)
+    }
+    
+    func resignFirstResponder(textField: UITextField) {
+        if textField.isFirstResponder() {
+            textField.resignFirstResponder()
         }
     }
 
