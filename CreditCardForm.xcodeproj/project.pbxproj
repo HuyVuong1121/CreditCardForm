@@ -24,6 +24,8 @@
 		A8C9705A1D382CCC00C1D3C0 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C970591D382CCC00C1D3C0 /* Theme.swift */; };
 		A8C9705C1D38328B00C1D3C0 /* CreditCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C9705B1D38328B00C1D3C0 /* CreditCard.swift */; };
 		A8C970601D386F9600C1D3C0 /* CreditCardValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C9705F1D386F9600C1D3C0 /* CreditCardValidationTests.swift */; };
+		A8C9C8081D72490A00278F16 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C9C8071D72490A00278F16 /* AlertController.swift */; };
+		A8C9C80A1D724EBF00278F16 /* ViewControllerTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C9C8091D724EBF00278F16 /* ViewControllerTextFieldDelegate.swift */; };
 		AA53E23B641471549B588E46 /* Pods_CreditCardForm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC4F8CD20C0217BF8EC7EAC0 /* Pods_CreditCardForm.framework */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +72,8 @@
 		A8C970591D382CCC00C1D3C0 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		A8C9705B1D38328B00C1D3C0 /* CreditCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CreditCard.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		A8C9705F1D386F9600C1D3C0 /* CreditCardValidationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CreditCardValidationTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		A8C9C8071D72490A00278F16 /* AlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
+		A8C9C8091D724EBF00278F16 /* ViewControllerTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerTextFieldDelegate.swift; sourceTree = "<group>"; };
 		BAE1A0B5ADAFC602424C1715 /* Pods-CreditCardFormTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CreditCardFormTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CreditCardFormTests/Pods-CreditCardFormTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BC4F8CD20C0217BF8EC7EAC0 /* Pods_CreditCardForm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CreditCardForm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E328A58821E00C9990C97E72 /* Pods-CreditCardForm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CreditCardForm.release.xcconfig"; path = "Pods/Target Support Files/Pods-CreditCardForm/Pods-CreditCardForm.release.xcconfig"; sourceTree = "<group>"; };
@@ -213,7 +217,9 @@
 		A8C970541D382C3900C1D3C0 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				A8C9C8071D72490A00278F16 /* AlertController.swift */,
 				A8C970551D382C3900C1D3C0 /* ViewController.swift */,
+				A8C9C8091D724EBF00278F16 /* ViewControllerTextFieldDelegate.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -470,8 +476,10 @@
 				A8C9705C1D38328B00C1D3C0 /* CreditCard.swift in Sources */,
 				A8C9705A1D382CCC00C1D3C0 /* Theme.swift in Sources */,
 				A84AB0411D5E38BF00932AC0 /* String+CreditCardEvaluator.swift in Sources */,
+				A8C9C8081D72490A00278F16 /* AlertController.swift in Sources */,
 				A8C970561D382C3900C1D3C0 /* ViewController.swift in Sources */,
 				A84AB03D1D5E2BD800932AC0 /* CreditCardProtocol.swift in Sources */,
+				A8C9C80A1D724EBF00278F16 /* ViewControllerTextFieldDelegate.swift in Sources */,
 				A8C970261D382A1B00C1D3C0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

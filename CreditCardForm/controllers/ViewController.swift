@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController, TextFieldDelegate {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var cardNumberLabel: UILabel!
@@ -34,32 +34,31 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var creditCard: CreditCardProtocol = UnknownCreditCard(cardNumber: "", expirationDate: "", cvv: "")
     var keyBoardIsOpen: Bool = false
 
+    var alertController: AlertController?
+    var textFieldDelegate: ViewControllerTextFieldDelegate?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         ThemeAppearance().setNavigationBarAppearance(navigationController)
         self.view.backgroundColor = Theme.Light.color
-        setupDelegates()
         setupControls()
         setupControlLayers()
+        self.alertController = AlertController(viewController: self)
+        self.textFieldDelegate = ViewControllerTextFieldDelegate(cardNumberTextField: cardNumberTextField, expirationDateTextField: expirationDateTextField, cvvTextField: cvvTextField, creditCard: creditCard)
+        self.textFieldDelegate!.updateWithViews(cardImageView, cardNumberCheckMark: cardNumberCheckMark, cardNumberCheckMarkView: cardNumberCheckMarkView, expirationDateCheckMark: expirationDateCheckMark, expirationDateCheckMarkView: expirationDateCheckMarkView, cvvCheckMark: cvvCheckMark, cvvCheckMarkView: cvvCheckMarkView)
+        self.textFieldDelegate?.delegate = self
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.textDidChange(_:)), name: UITextFieldTextDidChangeNotification, object: nil)
         resetFormPosition()
     }
 
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-
-    func setupDelegates() {
-        cardNumberTextField.delegate = self
-        expirationDateTextField.delegate = self
-        cvvTextField.delegate = self
     }
 
     func setupControls() {
@@ -89,12 +88,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     func updateLayer(view: UIView) {
         view.layer.cornerRadius = cornerRadius
-        view.layer.borderWidth = borderWidth
-        view.layer.borderColor = Theme.Dark.color.CGColor
+        updateLayerCommon(view)
     }
-    
+
     func updateLayerForCircle(view: UIView) {
         view.layer.cornerRadius = view.frame.width/2.0
+        updateLayerCommon(view)
+    }
+
+    func updateLayerCommon(view: UIView) {
         view.layer.borderWidth = borderWidth
         view.layer.borderColor = Theme.Dark.color.CGColor
     }
@@ -113,11 +115,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
         resignFirstResponder(expirationDateTextField)
         resignFirstResponder(cvvTextField)
     }
-    
+
     func resignFirstResponder(textField: UITextField) {
         if textField.isFirstResponder() {
             textField.resignFirstResponder()
         }
+    }
+
+    func creditCardUpdated(creditCard: CreditCardProtocol) {
+        self.creditCard = creditCard
     }
 
     func keyboardWillShow(notification: NSNotification) {
@@ -147,93 +153,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         })
     }
 
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        if let text = textField.text {
-            let characterCount = text.characters.count + string.characters.count
-            switch(textField.tag) {
-            case 0:
-                return string.nextCreditCardDigitIsValid(creditCard.type, cardNumberLength:creditCard.cardNumberLength, characterCount: characterCount)
-            case 1:
-                if text.characters.count <= 2 {
-                    expirationDateTextField.text = text.padExpirationDateMonth()
-                }
-                return string.nextExpirationDateDigitIsValid(text, characterCount: characterCount)
-            case 2:
-                return string.nextCVVDigitIsValid(creditCard.cvvLength, characterCount: characterCount)
-            default:
-                return true
-            }
-        }
-        return true
-    }
-
-    func textFieldDidBeginEditing(textField: UITextField) {
-        if textField.tag == 2 {
-            cardImageView.image = UIImage(named: "Cards_CVV.png")
-        }
-    }
-
-    func textFieldDidEndEditing(textField: UITextField) {
-        if textField.tag == 2 {
-            cardImageView.image = UIImage(named: creditCard.logo)
-        }
-        textField.layoutIfNeeded()
-    }
-
-    func textDidChange(notification: NSNotification) {
-        let textField = notification.object as! UITextField
-        if let text = textField.text {
-            switch(textField.tag) {
-            case 0:
-                creditCard = text.evaluateCardNumber(creditCard, cardImageView: cardImageView, cardNumberCheckMark: cardNumberCheckMark, cardNumberCheckMarkView: cardNumberCheckMarkView)
-                creditCard = creditCard.cvv.evaluateCVV(creditCard, cvvTextField: cvvTextField, cvvCheckMark: cvvCheckMark, cvvCheckMarkView: cvvCheckMarkView)
-            case 1:
-                creditCard = text.evaluateExpiredDate(creditCard, expirationDateTextField: expirationDateTextField, expirationDateCheckMark: expirationDateCheckMark, expirationDateCheckMarkView: expirationDateCheckMarkView)
-            case 2:
-                creditCard = text.evaluateCVV(creditCard, cvvTextField: cvvTextField, cvvCheckMark: cvvCheckMark, cvvCheckMarkView: cvvCheckMarkView)
-            default:
-                break
-            }
-        }
-    }
-
     @IBAction func submitButtonPressed(sender: AnyObject) {
         let title = "New Credit Card"
-        let message = alertMessageForCreditCard(creditCard)
-        showAlertWithMessage(title, message: message)
-    }
-
-    func alertMessageForCreditCard(creditCard: CreditCardProtocol) -> String {
-        var message = "Your credit card is valid!"
-        let cardTypeIsValid = creditCard.type != .Unknown
-        let cardNumberIsValid = creditCard.creditCardNumberIsValid()
-        let cardExpirationIsValid = creditCard.expirationDate.expirationDateIsValid()
-        let cardCVVIsValid = creditCard.cvv.cvvLengthIsCorrect(creditCard.cvvLength)
-
-        if creditCard.creditCardIsValid() {
-            resignFirstResponders()
-        } else {
-            if creditCard.cardNumber.isEmpty {
-                message = "Please enter a card number"
-            } else if !cardTypeIsValid || !cardNumberIsValid {
-                message = "Please correct the card number"
-            } else if creditCard.expirationDate.isEmpty {
-                message = "Please enter an expiration date"
-            } else if !cardExpirationIsValid {
-                message = "Please correct the expiration date"
-            } else if creditCard.cvv.isEmpty {
-                message = "Please enter a CVV code"
-            } else if !cardCVVIsValid {
-                message = "Please correct the CVV number"
-            }
-        }
-        return message
-    }
-
-    func showAlertWithMessage(title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "Ok", style: .Cancel) { (action) in}
-        alertController.addAction(cancelAction)
-        self.presentViewController(alertController, animated: true) {}
+        let message = self.alertController?.alertMessageForCreditCard(creditCard)
+        self.alertController?.showAlertWithMessage(title, message: message!)
     }
 }
