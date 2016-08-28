@@ -1,5 +1,5 @@
 //
-//  ViewControllerTextFieldDelegate.swift
+//  TextFieldDelegateController.swift
 //  CreditCardForm
 //
 //  Created by NoDeveloper on 8/27/16.
@@ -8,11 +8,12 @@
 
 import UIKit
 
-protocol TextFieldDelegate {
+protocol TextFieldDelegateControllerProtocol {
     func creditCardUpdated(creditCard: CreditCardProtocol)
+    func updateTitleLabelPosition(notification: NSNotification, constant: CGFloat, keyBoardIsOpen: Bool)
 }
 
-class ViewControllerTextFieldDelegate: NSObject {
+class TextFieldDelegateController: NSObject {
 
     var keyBoardIsOpen: Bool = false
     var creditCard: CreditCardProtocol
@@ -27,7 +28,7 @@ class ViewControllerTextFieldDelegate: NSObject {
     var cvvCheckMark: UIImageView!
     var cvvCheckMarkView: UIView!
 
-    var delegate: TextFieldDelegate?
+    var delegate: TextFieldDelegateControllerProtocol?
 
     init(cardNumberTextField: UITextField, expirationDateTextField: UITextField, cvvTextField: UITextField, creditCard: CreditCardProtocol) {
         self.creditCard = creditCard
@@ -38,7 +39,9 @@ class ViewControllerTextFieldDelegate: NSObject {
         self.cardNumberTextField.delegate = self
         self.expirationDateTextField.delegate = self
         self.cvvTextField.delegate = self
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewControllerTextFieldDelegate.textDidChange(_:)), name: UITextFieldTextDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TextFieldDelegateController.textDidChange(_:)), name: UITextFieldTextDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TextFieldDelegateController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TextFieldDelegateController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
 
     func updateWithViews(cardImageView: UIImageView, cardNumberCheckMark: UIImageView, cardNumberCheckMarkView: UIView, expirationDateCheckMark: UIImageView, expirationDateCheckMarkView: UIView, cvvCheckMark: UIImageView, cvvCheckMarkView: UIView) {
@@ -53,10 +56,12 @@ class ViewControllerTextFieldDelegate: NSObject {
 
     deinit {
         self.removeObserver(self, forKeyPath: UITextFieldTextDidChangeNotification)
+        self.removeObserver(self, forKeyPath: UIKeyboardWillShowNotification)
+        self.removeObserver(self, forKeyPath: UIKeyboardWillHideNotification)
     }
 }
 
-extension ViewControllerTextFieldDelegate: UITextFieldDelegate {
+extension TextFieldDelegateController: UITextFieldDelegate {
 
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         if let text = textField.text {
@@ -107,6 +112,19 @@ extension ViewControllerTextFieldDelegate: UITextFieldDelegate {
             }
         }
         delegate?.creditCardUpdated(creditCard)
+    }
+
+    func keyboardWillShow(notification: NSNotification) {
+        if keyBoardIsOpen {
+            return
+        }
+        keyBoardIsOpen = true
+        delegate?.updateTitleLabelPosition(notification, constant: 0, keyBoardIsOpen: keyBoardIsOpen)
+    }
+
+    func keyboardWillHide(notification: NSNotification) {
+        keyBoardIsOpen = false
+        delegate?.updateTitleLabelPosition(notification, constant: titleLabelDefault, keyBoardIsOpen: keyBoardIsOpen)
     }
 
 }

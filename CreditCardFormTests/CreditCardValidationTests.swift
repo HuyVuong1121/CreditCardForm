@@ -11,26 +11,8 @@ import XCTest
 
 class CreditCardValidationTests: XCTestCase {
 
-    let emptyNumber = ""
-    let shortNumber = "3782"
-    let randomNumber = "asoidfwneroqj"
     let amex1Number = "378282246310005"
     let amex1BadLuhnNumber = "378282246310004"
-    let amex2Number = "371449635398431"
-    let diners1Number = "30569309025904"
-    let diners2Number = "38520000023237"
-    let discover1Number = "6011111111111117"
-    let discover2Number = "6011000990139424"
-    let jcb1Number = "3530111333300000"
-    let jcb2Number = "3566002020360505"
-    let mastercard1Number = "5555555555554444"
-    let masterCard2Number = "5105105105105100"
-    let visa1Number = "4111111111111111"
-    let visa2Number = "4012888888881881"
-    let visa3Number = "4222222222222"
-    let visa3BadNumber = "4222222222223"
-    let visa3BadLuhnNumber = "4222222222225"
-
     let amexCVVNumber = "1234"
 
     let unknownCreditCard: CreditCardProtocol = UnknownCreditCard(cardNumber: "", expirationDate: "", cvv: "")
@@ -38,86 +20,6 @@ class CreditCardValidationTests: XCTestCase {
     let visaCreditCard: CreditCardProtocol = VisaCreditCard(cardNumber: "4111111111111111", expirationDate: "", cvv: "")
 
     let dateFormatter = NSDateFormatter()
-
-    func testcreditCardFromStringEmptyNumber() {
-        let card = emptyNumber.creditCardFromString()
-        XCTAssertEqual(card.type, CreditCardType.Unknown)
-    }
-
-    func testcreditCardFromStringShortNumber() {
-        let card = shortNumber.creditCardFromString()
-        XCTAssertEqual(card.type, CreditCardType.Unknown)
-    }
-
-    func testcreditCardFromStringRandomNumber() {
-        let card = randomNumber.creditCardFromString()
-        XCTAssertEqual(card.type, CreditCardType.Unknown)
-    }
-
-    func testcreditCardFromStringAmex1() {
-        let card = amex1Number.creditCardFromString()
-        XCTAssertEqual(card.type, CreditCardType.Amex)
-    }
-
-    func testcreditCardFromStringAmex2() {
-        let card = amex2Number.creditCardFromString()
-        XCTAssertEqual(card.type, CreditCardType.Amex)
-    }
-
-    func testcreditCardFromStringDiners1() {
-        let card = diners1Number.creditCardFromString()
-        XCTAssertEqual(card.type, CreditCardType.DinersClub)
-    }
-
-    func testcreditCardFromStringDiners2() {
-        let card = diners2Number.creditCardFromString()
-        XCTAssertEqual(card.type, CreditCardType.DinersClub)
-    }
-
-    func testcreditCardFromStringDiscover1() {
-        let card = discover1Number.creditCardFromString()
-        XCTAssertEqual(card.type, CreditCardType.Discover)
-    }
-
-    func testcreditCardFromStringDiscover2() {
-        let card = discover2Number.creditCardFromString()
-        XCTAssertEqual(card.type, CreditCardType.Discover)
-    }
-
-    func testcreditCardFromStringJCB1() {
-        let card = jcb1Number.creditCardFromString()
-        XCTAssertEqual(card.type, CreditCardType.JCB)
-    }
-
-    func testcreditCardFromStringJCB2() {
-        let card = jcb2Number.creditCardFromString()
-        XCTAssertEqual(card.type, CreditCardType.JCB)
-    }
-
-    func testcreditCardFromStringMasterCard1() {
-        let card = mastercard1Number.creditCardFromString()
-        XCTAssertEqual(card.type, CreditCardType.MasterCard)
-    }
-
-    func testcreditCardFromStringMasterCard2() {
-        let card = masterCard2Number.creditCardFromString()
-        XCTAssertEqual(card.type, CreditCardType.MasterCard)
-    }
-
-    func testcreditCardFromStringVisa1() {
-        let card = visa1Number.creditCardFromString()
-        XCTAssertEqual(card.type, CreditCardType.Visa)
-    }
-
-    func testcreditCardFromStringVisa2() {
-        let card = visa2Number.creditCardFromString()
-        XCTAssertEqual(card.type, CreditCardType.Visa)
-    }
-
-    func testcreditCardFromStringVisa3() {
-        let card = visa3Number.creditCardFromString()
-        XCTAssertEqual(card.type, CreditCardType.Visa)
-    }
 
     func testIsValidateExpirationDateBadDate() {
         let isValidDate = "aa/bb".expirationDateIsValid()

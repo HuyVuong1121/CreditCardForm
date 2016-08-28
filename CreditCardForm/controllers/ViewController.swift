@@ -8,7 +8,9 @@
 
 import UIKit
 
-class ViewController: UIViewController, TextFieldDelegate {
+let titleLabelDefault: CGFloat = 59.0
+
+class ViewController: UIViewController, TextFieldDelegateControllerProtocol {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var cardNumberLabel: UILabel!
@@ -28,14 +30,12 @@ class ViewController: UIViewController, TextFieldDelegate {
     @IBOutlet weak var expirationDateCheckMarkView: UIView!
     @IBOutlet weak var cvvCheckMarkView: UIView!
 
-    let titleLabelDefault: CGFloat = 59.0
     let cornerRadius: CGFloat = 4.0
     let borderWidth: CGFloat = 1.0
     var creditCard: CreditCardProtocol = UnknownCreditCard(cardNumber: "", expirationDate: "", cvv: "")
-    var keyBoardIsOpen: Bool = false
 
     var alertController: AlertController?
-    var textFieldDelegate: ViewControllerTextFieldDelegate?
+    var textFieldDelegate: TextFieldDelegateController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,15 +44,13 @@ class ViewController: UIViewController, TextFieldDelegate {
         setupControls()
         setupControlLayers()
         self.alertController = AlertController(viewController: self)
-        self.textFieldDelegate = ViewControllerTextFieldDelegate(cardNumberTextField: cardNumberTextField, expirationDateTextField: expirationDateTextField, cvvTextField: cvvTextField, creditCard: creditCard)
+        self.textFieldDelegate = TextFieldDelegateController(cardNumberTextField: cardNumberTextField, expirationDateTextField: expirationDateTextField, cvvTextField: cvvTextField, creditCard: creditCard)
         self.textFieldDelegate!.updateWithViews(cardImageView, cardNumberCheckMark: cardNumberCheckMark, cardNumberCheckMarkView: cardNumberCheckMarkView, expirationDateCheckMark: expirationDateCheckMark, expirationDateCheckMarkView: expirationDateCheckMarkView, cvvCheckMark: cvvCheckMark, cvvCheckMarkView: cvvCheckMarkView)
         self.textFieldDelegate?.delegate = self
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
         resetFormPosition()
     }
 
@@ -126,28 +124,24 @@ class ViewController: UIViewController, TextFieldDelegate {
         self.creditCard = creditCard
     }
 
-    func keyboardWillShow(notification: NSNotification) {
+    func updateTitleLabelPosition(notification: NSNotification, constant: CGFloat, keyBoardIsOpen: Bool) {
         if keyBoardIsOpen {
-            return
-        }
-        keyBoardIsOpen = true
-        if let userInfo = notification.userInfo {
-            if let keyboardSize = (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
-                let keyBoardFrame = CGRect(origin: CGPoint(x: keyboardSize.origin.x, y: (keyboardSize.origin.y -  keyboardSize.size.height)), size: keyboardSize.size)
-                let containerViewFrame = containerView.frame
-                if keyBoardFrame.intersects(containerViewFrame) {
-                    titleLabelTopConstraint.constant = 0
-                    UIView.animateWithDuration(0.5, animations: { () -> Void in
-                        self.view.layoutIfNeeded()
-                    })
+            if let userInfo = notification.userInfo {
+                if let keyboardSize = (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+                    let keyBoardFrame = CGRect(origin: CGPoint(x: keyboardSize.origin.x, y: (keyboardSize.origin.y -  keyboardSize.size.height)), size: keyboardSize.size)
+                    let containerViewFrame = containerView.frame
+                    if keyBoardFrame.intersects(containerViewFrame) {
+                        animateTitleLabel(constant)
+                    }
                 }
             }
+        } else {
+            animateTitleLabel(constant)
         }
     }
-
-    func keyboardWillHide(notification: NSNotification) {
-        keyBoardIsOpen = false
-        titleLabelTopConstraint.constant = titleLabelDefault
+    
+    func animateTitleLabel(constant: CGFloat) {
+        titleLabelTopConstraint.constant = constant
         UIView.animateWithDuration(0.5, animations: { () -> Void in
             self.view.layoutIfNeeded()
         })
@@ -157,10 +151,5 @@ class ViewController: UIViewController, TextFieldDelegate {
         let title = "New Credit Card"
         let message = self.alertController?.alertMessageForCreditCard(creditCard)
         self.alertController?.showAlertWithMessage(title, message: message!)
-    }
-
-    deinit {
-        self.removeObserver(self, forKeyPath: UIKeyboardWillShowNotification)
-        self.removeObserver(self, forKeyPath: UIKeyboardWillHideNotification)
     }
 }

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import UIKit
 
 enum CreditCardType {
     case Amex, DinersClub, Discover, JCB, MasterCard, Visa, Unknown

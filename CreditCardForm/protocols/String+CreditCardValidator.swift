@@ -10,20 +10,6 @@ import Foundation
 
 extension String {
 
-    func creditCardFromString() -> CreditCardProtocol {
-        let creditCard = UnknownCreditCard(cardNumber: "", expirationDate: "", cvv: "")
-        var validCard: CreditCardProtocol
-        for type in CreditCardType.validValues {
-            validCard = creditCard.cardFromType(type, cardNumber: "", expirationDate: "", cvv: "")
-            let predicate = NSPredicate(format: "SELF MATCHES %@", validCard.regex)
-            let numbersString = self.onlyNumbersFromString()
-            if predicate.evaluateWithObject(numbersString) {
-                return validCard
-            }
-        }
-        return creditCard
-    }
-
     func onlyNumbersFromString() -> String {
         let set = NSCharacterSet.decimalDigitCharacterSet().invertedSet
         let numbers = self.componentsSeparatedByCharactersInSet(set)
