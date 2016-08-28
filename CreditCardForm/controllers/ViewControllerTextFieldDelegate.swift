@@ -2,8 +2,8 @@
 //  ViewControllerTextFieldDelegate.swift
 //  CreditCardForm
 //
-//  Created by Bruce McTigue on 8/27/16.
-//  Copyright © 2016 tiguer. All rights reserved.
+//  Created by NoDeveloper on 8/27/16.
+//  Copyright © 2016 NoCompany. All rights reserved.
 //
 
 import UIKit
