@@ -158,4 +158,9 @@ class ViewController: UIViewController, TextFieldDelegate {
         let message = self.alertController?.alertMessageForCreditCard(creditCard)
         self.alertController?.showAlertWithMessage(title, message: message!)
     }
+
+    deinit {
+        self.removeObserver(self, forKeyPath: UIKeyboardWillShowNotification)
+        self.removeObserver(self, forKeyPath: UIKeyboardWillHideNotification)
+    }
 }

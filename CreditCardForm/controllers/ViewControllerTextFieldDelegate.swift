@@ -40,6 +40,10 @@ class ViewControllerTextFieldDelegate: NSObject {
         self.cvvTextField.delegate = self
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewControllerTextFieldDelegate.textDidChange(_:)), name: UITextFieldTextDidChangeNotification, object: nil)
     }
+
+    deinit {
+        self.removeObserver(self, forKeyPath: UITextFieldTextDidChangeNotification)
+    }
 }
 
 extension ViewControllerTextFieldDelegate: UITextFieldDelegate {
