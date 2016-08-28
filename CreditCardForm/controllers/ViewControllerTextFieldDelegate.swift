@@ -41,13 +41,6 @@ class ViewControllerTextFieldDelegate: NSObject {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewControllerTextFieldDelegate.textDidChange(_:)), name: UITextFieldTextDidChangeNotification, object: nil)
     }
 
-    deinit {
-        self.removeObserver(self, forKeyPath: UITextFieldTextDidChangeNotification)
-    }
-}
-
-extension ViewControllerTextFieldDelegate: UITextFieldDelegate {
-
     func updateWithViews(cardImageView: UIImageView, cardNumberCheckMark: UIImageView, cardNumberCheckMarkView: UIView, expirationDateCheckMark: UIImageView, expirationDateCheckMarkView: UIView, cvvCheckMark: UIImageView, cvvCheckMarkView: UIView) {
         self.cardImageView = cardImageView
         self.cardNumberCheckMark = cardNumberCheckMark
@@ -57,6 +50,13 @@ extension ViewControllerTextFieldDelegate: UITextFieldDelegate {
         self.cvvCheckMark = cvvCheckMark
         self.cvvCheckMarkView = cvvCheckMarkView
     }
+
+    deinit {
+        self.removeObserver(self, forKeyPath: UITextFieldTextDidChangeNotification)
+    }
+}
+
+extension ViewControllerTextFieldDelegate: UITextFieldDelegate {
 
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         if let text = textField.text {
