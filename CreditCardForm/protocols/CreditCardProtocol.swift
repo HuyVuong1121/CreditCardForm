@@ -15,28 +15,11 @@ protocol CreditCardProtocol {
     var regex: String { get }
     var cardNumberLength: Int { get }
     var cvvLength: Int { get }
+    func creditCardIsValid() -> Bool
+    func creditCardNumberIsValid() -> Bool
 }
 
 extension CreditCardProtocol {
-
-    func cardFromType(type: CreditCardType, cardNumber: String, expirationDate: String, cvv: String) -> CreditCardProtocol {
-        switch type {
-        case .Amex:
-            return AmexCreditCard(cardNumber: cardNumber, expirationDate: expirationDate, cvv: cvv)
-        case .DinersClub:
-            return DinersClubCreditCard(cardNumber: cardNumber, expirationDate: expirationDate, cvv: cvv)
-        case .Discover:
-            return DiscoverCreditCard(cardNumber: cardNumber, expirationDate: expirationDate, cvv: cvv)
-        case .JCB:
-            return JCBCreditCard(cardNumber: cardNumber, expirationDate: expirationDate, cvv: cvv)
-        case .MasterCard:
-            return MasterCardCreditCard(cardNumber: cardNumber, expirationDate: expirationDate, cvv: cvv)
-        case .Visa:
-            return VisaCreditCard(cardNumber: cardNumber, expirationDate: expirationDate, cvv: cvv)
-        case .Unknown:
-            return UnknownCreditCard(cardNumber: cardNumber, expirationDate: expirationDate, cvv: cvv)
-        }
-    }
 
     func creditCardIsValid() -> Bool {
         return self.type != .Unknown && self.creditCardNumberIsValid() && self.expirationDate.expirationDateIsValid() && self.cvv.cvvLengthIsCorrect(self.cvvLength)

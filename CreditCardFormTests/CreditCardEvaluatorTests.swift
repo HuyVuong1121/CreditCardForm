@@ -26,14 +26,14 @@ class CreditCardEvaluatorTests: XCTestCase {
 
     func testEvaluateCardNumberInvalidCard() {
         let _ = vc.view
-        _ = "".evaluateCardNumber(unknownCreditCard, cardImageView: vc.cardImageView, cardNumberCheckMark: vc.cardNumberCheckMark, cardNumberCheckMarkView: vc.cardNumberCheckMarkView)
+        _ = "".cardFromCardNumber(vc.cardImageView, cardNumberCheckMark: vc.cardNumberCheckMark, cardNumberCheckMarkView: vc.cardNumberCheckMarkView)
         XCTAssertTrue(vc.cardNumberCheckMark.hidden)
         XCTAssertFalse(vc.cardNumberCheckMarkView.hidden)
     }
 
     func testEvaluateCardNumberValidCard() {
         let _ = vc.view
-        _ = "4111111111111111".evaluateCardNumber(visaCreditCard, cardImageView: vc.cardImageView, cardNumberCheckMark: vc.cardNumberCheckMark, cardNumberCheckMarkView: vc.cardNumberCheckMarkView)
+        _ = "4111111111111111".cardFromCardNumber(vc.cardImageView, cardNumberCheckMark: vc.cardNumberCheckMark, cardNumberCheckMarkView: vc.cardNumberCheckMarkView)
         XCTAssertFalse(vc.cardNumberCheckMark.hidden)
         XCTAssertTrue(vc.cardNumberCheckMarkView.hidden)
     }

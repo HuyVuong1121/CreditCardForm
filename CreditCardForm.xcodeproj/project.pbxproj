@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		959AF1392E29B960E956FBC9 /* Pods_CreditCardFormTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DD1593EAC83FB348E4087A9 /* Pods_CreditCardFormTests.framework */; };
-		A82F47F61D73488C0077E8A1 /* CreditCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82F47F51D73488C0077E8A1 /* CreditCardController.swift */; };
+		A81CF75F1D7CDC6800A9C9FF /* CreditCardFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81CF75E1D7CDC6800A9C9FF /* CreditCardFactory.swift */; };
 		A82F47F81D734C310077E8A1 /* CreditCardControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82F47F71D734C310077E8A1 /* CreditCardControllerTests.swift */; };
 		A82F47FA1D734E590077E8A1 /* TextFieldDelegateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82F47F91D734E590077E8A1 /* TextFieldDelegateController.swift */; };
 		A84AB03D1D5E2BD800932AC0 /* CreditCardProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84AB03C1D5E2BD800932AC0 /* CreditCardProtocol.swift */; };
@@ -51,7 +51,7 @@
 /* Begin PBXFileReference section */
 		0E5E6A00A0D900F206CA70EE /* Pods-CreditCardForm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CreditCardForm.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CreditCardForm/Pods-CreditCardForm.debug.xcconfig"; sourceTree = "<group>"; };
 		2DD1593EAC83FB348E4087A9 /* Pods_CreditCardFormTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CreditCardFormTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A82F47F51D73488C0077E8A1 /* CreditCardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardController.swift; sourceTree = "<group>"; };
+		A81CF75E1D7CDC6800A9C9FF /* CreditCardFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardFactory.swift; sourceTree = "<group>"; };
 		A82F47F71D734C310077E8A1 /* CreditCardControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardControllerTests.swift; sourceTree = "<group>"; };
 		A82F47F91D734E590077E8A1 /* TextFieldDelegateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldDelegateController.swift; sourceTree = "<group>"; };
 		A84AB03C1D5E2BD800932AC0 /* CreditCardProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardProtocol.swift; sourceTree = "<group>"; };
@@ -241,7 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				A8C9705B1D38328B00C1D3C0 /* CreditCard.swift */,
-				A82F47F51D73488C0077E8A1 /* CreditCardController.swift */,
+				A81CF75E1D7CDC6800A9C9FF /* CreditCardFactory.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -483,7 +483,7 @@
 				A82F47FA1D734E590077E8A1 /* TextFieldDelegateController.swift in Sources */,
 				A8C9705A1D382CCC00C1D3C0 /* Theme.swift in Sources */,
 				A84AB0411D5E38BF00932AC0 /* String+CreditCardEvaluator.swift in Sources */,
-				A82F47F61D73488C0077E8A1 /* CreditCardController.swift in Sources */,
+				A81CF75F1D7CDC6800A9C9FF /* CreditCardFactory.swift in Sources */,
 				A8C9C8081D72490A00278F16 /* AlertController.swift in Sources */,
 				A8C970561D382C3900C1D3C0 /* ViewController.swift in Sources */,
 				A84AB03D1D5E2BD800932AC0 /* CreditCardProtocol.swift in Sources */,
