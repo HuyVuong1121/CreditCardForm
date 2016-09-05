@@ -45,7 +45,7 @@ final class CreditCardFactory: CreditCardFactoryProtocol {
             return MasterCardCreditCard(cardNumber: cardNumber, expirationDate: expirationDate, cvv: cvv)
         case .Visa:
             return VisaCreditCard(cardNumber: cardNumber, expirationDate: expirationDate, cvv: cvv)
-        case .Unknown:
+        default:
             return UnknownCreditCard(cardNumber: cardNumber, expirationDate: expirationDate, cvv: cvv)
         }
     }
