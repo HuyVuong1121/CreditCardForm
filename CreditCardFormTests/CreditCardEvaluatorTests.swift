@@ -15,6 +15,7 @@ class CreditCardEvaluatorTests: XCTestCase {
     let unknownCreditCard: CreditCardProtocol = UnknownCreditCard(cardNumber: "", expirationDate: "", cvv: "")
     let amexCreditCard: CreditCardProtocol = AmexCreditCard(cardNumber: "378282246310005", expirationDate: "", cvv: "")
     let visaCreditCard: CreditCardProtocol = VisaCreditCard(cardNumber: "4111111111111111", expirationDate: "", cvv: "")
+    let creditCardFactory: CreditCardFactoryProtocol = CreditCardFactory.sharedInstance
 
     override func setUp() {
         super.setUp()
@@ -26,14 +27,14 @@ class CreditCardEvaluatorTests: XCTestCase {
 
     func testEvaluateCardNumberInvalidCard() {
         let _ = vc.view
-        _ = "".cardFromCardNumber(vc.cardImageView, cardNumberCheckMark: vc.cardNumberCheckMark, cardNumberCheckMarkView: vc.cardNumberCheckMarkView)
+        _ = "".cardFromCardNumber(CreditCardFactory.sharedInstance, cardImageView: vc.cardImageView, cardNumberCheckMark: vc.cardNumberCheckMark, cardNumberCheckMarkView: vc.cardNumberCheckMarkView)
         XCTAssertTrue(vc.cardNumberCheckMark.hidden)
         XCTAssertFalse(vc.cardNumberCheckMarkView.hidden)
     }
 
     func testEvaluateCardNumberValidCard() {
         let _ = vc.view
-        _ = "4111111111111111".cardFromCardNumber(vc.cardImageView, cardNumberCheckMark: vc.cardNumberCheckMark, cardNumberCheckMarkView: vc.cardNumberCheckMarkView)
+        _ = "4111111111111111".cardFromCardNumber(CreditCardFactory.sharedInstance, cardImageView: vc.cardImageView, cardNumberCheckMark: vc.cardNumberCheckMark, cardNumberCheckMarkView: vc.cardNumberCheckMarkView)
         XCTAssertFalse(vc.cardNumberCheckMark.hidden)
         XCTAssertTrue(vc.cardNumberCheckMarkView.hidden)
     }

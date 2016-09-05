@@ -9,7 +9,7 @@
 import Foundation
 
 protocol CreditCardFactoryProtocol {
-    func creditCardFromString(creditCardNumber: String) -> CreditCardProtocol
+    func create(creditCardNumber: String) -> CreditCardProtocol
 }
 
 final class CreditCardFactory: CreditCardFactoryProtocol {
@@ -17,7 +17,7 @@ final class CreditCardFactory: CreditCardFactoryProtocol {
     static let sharedInstance = CreditCardFactory()
     private init() {}
 
-    func creditCardFromString(creditCardNumber: String) -> CreditCardProtocol {
+    func create(creditCardNumber: String) -> CreditCardProtocol {
         let creditCard = UnknownCreditCard(cardNumber: "", expirationDate: "", cvv: "")
         var validCard: CreditCardProtocol
         for type in CreditCardType.validValues {

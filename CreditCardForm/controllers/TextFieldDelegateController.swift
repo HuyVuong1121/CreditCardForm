@@ -101,7 +101,7 @@ extension TextFieldDelegateController: UITextFieldDelegate {
         if let text = textField.text {
             switch(textField.tag) {
             case 0:
-                creditCard = text.cardFromCardNumber(cardImageView, cardNumberCheckMark: cardNumberCheckMark, cardNumberCheckMarkView: cardNumberCheckMarkView)
+                creditCard = text.cardFromCardNumber(CreditCardFactory.sharedInstance, cardImageView: cardImageView, cardNumberCheckMark: cardNumberCheckMark, cardNumberCheckMarkView: cardNumberCheckMarkView)
                 creditCard = creditCard.cvv.evaluateCVV(creditCard, cvvTextField: cvvTextField, cvvCheckMark: cvvCheckMark, cvvCheckMarkView: cvvCheckMarkView)
             case 1:
                 creditCard = text.evaluateExpiredDate(creditCard, expirationDateTextField: expirationDateTextField, expirationDateCheckMark: expirationDateCheckMark, expirationDateCheckMarkView: expirationDateCheckMarkView)

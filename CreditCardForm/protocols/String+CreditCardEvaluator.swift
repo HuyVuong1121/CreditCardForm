@@ -11,8 +11,8 @@ import UIKit
 
 extension String {
 
-    func cardFromCardNumber(cardImageView: UIImageView, cardNumberCheckMark: UIImageView, cardNumberCheckMarkView: UIView) -> CreditCardProtocol {
-        var creditCard = CreditCardFactory.sharedInstance.creditCardFromString(self)
+    func cardFromCardNumber(creditCardFactory: CreditCardFactoryProtocol, cardImageView: UIImageView, cardNumberCheckMark: UIImageView, cardNumberCheckMarkView: UIView) -> CreditCardProtocol {
+        var creditCard = creditCardFactory.create(self)
         cardImageView.image = UIImage(named: creditCard.logo)
         let cardNumberIsValid = creditCard.type != .Unknown && self.creditCardNumberLengthIsCorrect(creditCard.cardNumberLength) && self.passesLuhnAlgorithm()
         if cardNumberIsValid {

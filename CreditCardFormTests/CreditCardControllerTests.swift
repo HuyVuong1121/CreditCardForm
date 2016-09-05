@@ -29,82 +29,82 @@ class CreditCardControllerTests: XCTestCase {
     let visa3Number = "4222222222222"
 
     func testcreditCardFromStringEmptyNumber() {
-        let card = CreditCardFactory.sharedInstance.creditCardFromString(emptyNumber)
+        let card = CreditCardFactory.sharedInstance.create(emptyNumber)
         XCTAssertEqual(card.type, CreditCardType.Unknown)
     }
 
     func testcreditCardFromStringShortNumber() {
-        let card = CreditCardFactory.sharedInstance.creditCardFromString(shortNumber)
+        let card = CreditCardFactory.sharedInstance.create(shortNumber)
         XCTAssertEqual(card.type, CreditCardType.Unknown)
     }
 
     func testcreditCardFromStringRandomNumber() {
-        let card = CreditCardFactory.sharedInstance.creditCardFromString(randomNumber)
+        let card = CreditCardFactory.sharedInstance.create(randomNumber)
         XCTAssertEqual(card.type, CreditCardType.Unknown)
     }
 
     func testcreditCardFromStringAmex1() {
-        let card = CreditCardFactory.sharedInstance.creditCardFromString(amex1Number)
+        let card = CreditCardFactory.sharedInstance.create(amex1Number)
         XCTAssertEqual(card.type, CreditCardType.Amex)
     }
 
     func testcreditCardFromStringAmex2() {
-        let card = CreditCardFactory.sharedInstance.creditCardFromString(amex2Number)
+        let card = CreditCardFactory.sharedInstance.create(amex2Number)
         XCTAssertEqual(card.type, CreditCardType.Amex)
     }
 
     func testcreditCardFromStringDiners1() {
-        let card = CreditCardFactory.sharedInstance.creditCardFromString(diners1Number)
+        let card = CreditCardFactory.sharedInstance.create(diners1Number)
         XCTAssertEqual(card.type, CreditCardType.DinersClub)
     }
 
     func testcreditCardFromStringDiners2() {
-        let card = CreditCardFactory.sharedInstance.creditCardFromString(diners2Number)
+        let card = CreditCardFactory.sharedInstance.create(diners2Number)
         XCTAssertEqual(card.type, CreditCardType.DinersClub)
     }
 
     func testcreditCardFromStringDiscover1() {
-        let card = CreditCardFactory.sharedInstance.creditCardFromString(discover1Number)
+        let card = CreditCardFactory.sharedInstance.create(discover1Number)
         XCTAssertEqual(card.type, CreditCardType.Discover)
     }
 
     func testcreditCardFromStringDiscover2() {
-        let card = CreditCardFactory.sharedInstance.creditCardFromString(discover2Number)
+        let card = CreditCardFactory.sharedInstance.create(discover2Number)
         XCTAssertEqual(card.type, CreditCardType.Discover)
     }
 
     func testcreditCardFromStringJCB1() {
-        let card = CreditCardFactory.sharedInstance.creditCardFromString(jcb1Number)
+        let card = CreditCardFactory.sharedInstance.create(jcb1Number)
         XCTAssertEqual(card.type, CreditCardType.JCB)
     }
 
     func testcreditCardFromStringJCB2() {
-        let card = CreditCardFactory.sharedInstance.creditCardFromString(jcb2Number)
+        let card = CreditCardFactory.sharedInstance.create(jcb2Number)
         XCTAssertEqual(card.type, CreditCardType.JCB)
     }
 
     func testcreditCardFromStringMasterCard1() {
-        let card = CreditCardFactory.sharedInstance.creditCardFromString(mastercard1Number)
+        let card = CreditCardFactory.sharedInstance.create(mastercard1Number)
         XCTAssertEqual(card.type, CreditCardType.MasterCard)
     }
 
     func testcreditCardFromStringMasterCard2() {
-        let card = CreditCardFactory.sharedInstance.creditCardFromString(masterCard2Number)
+        let card = CreditCardFactory.sharedInstance.create(masterCard2Number)
         XCTAssertEqual(card.type, CreditCardType.MasterCard)
     }
 
     func testcreditCardFromStringVisa1() {
-        let card = CreditCardFactory.sharedInstance.creditCardFromString(visa1Number)
+        let card = CreditCardFactory.sharedInstance.create(visa1Number)
         XCTAssertEqual(card.type, CreditCardType.Visa)
     }
 
     func testcreditCardFromStringVisa2() {
-        let card = CreditCardFactory.sharedInstance.creditCardFromString(visa2Number)
+        let card = CreditCardFactory.sharedInstance.create(visa2Number)
         XCTAssertEqual(card.type, CreditCardType.Visa)
     }
 
     func testcreditCardFromStringVisa3() {
-        let card = CreditCardFactory.sharedInstance.creditCardFromString(visa3Number)
+        let card = CreditCardFactory.sharedInstance.create(visa3Number)
         XCTAssertEqual(card.type, CreditCardType.Visa)
     }
 
