@@ -18,7 +18,7 @@ final class CreditCardFactory: CreditCardFactoryProtocol {
     private init() {}
 
     func create(creditCardNumber: String) -> CreditCardProtocol {
-        let creditCard = UnknownCreditCard(cardNumber: "", expirationDate: "", cvv: "")
+        let creditCard = cardFromType(.Unknown, cardNumber: "", expirationDate: "", cvv: "")
         var validCard: CreditCardProtocol
         for type in CreditCardType.validValues {
             validCard = cardFromType(type, cardNumber: "", expirationDate: "", cvv: "")
